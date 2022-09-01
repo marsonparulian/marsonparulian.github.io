@@ -1,84 +1,19 @@
 marson parulian
 marson.parulian@gmail.com
 +61 424 917 401
-Summary https://marsonparulian.github.io
-I am currently focusing on web-JS and backend related technologies. 
-e.g.: Typescript MongoDB, Express, GraphQL, React, Node.js, AWS 
-stack, and Docker.
-I quitted working in 2017 due to eye problem. Since 2020 I learned to 
-use screen reader, so I can code without seeing the screen. Currently 
-~95% of time I code with screen reader (Demos are listed in link 
-above).
-In the past projects I had used various technologies such as: PHP 
-frameworks, MySQL, and Java.
-I have knowledge and practical skill (screen reader user) to develop an 
-accessible web application. I completed a short online course titled 
-"Introduction to Web Accessibility" in Dec 2020 - Jan 2021.
-Career history Full Stack Developer at Hive Empire (Finder.com.au)
-Jun 2016 - Feb 2017 (8 months)
-- Enhance and fix bugs on the existed system on backend (PHP 
-WordPress) and frontend (Vanilla JS, HTML, CSS).
-- Developed additional WordPress page (PHP, MySQL, HTML, and 
-CSS).
-- Developed frontend (React JS & HTML) part of a credit score 
-application embedded in the WordPress system.
-Systems Architect at ASEAN Foundation (Indonesia) & 
-SEACON (Malaysia)
-Feb 2013 - Apr 2014 (1 year 1 month)
-Both organizations, started a joint project named SAFSEN (Southeast 
-Asia Network on Technology for Sustainable Agriculture, Food & 
-Nutrition). One of the project goal was to develop a web-based
-cultivation techniques and technologies database to allow farmers, 
-practitioners, and scholars sharing existing and latest practice.Created with SEEK Profile
-The database was built using CakePHP, MySQL, Twitter Bootstrap, 
-JQuery, JQuery UI, HTML5, CSS3, and Apache.
-Role: System Architect & Programmer
-Responsibilities: Conduct system needs assessment, design system 
-requirement and features, design user interface, and develop the 
-system. Report to project manager, coordinating with Web 
-Administrator, and manage System Tester.
-ICT Specialist at JHPIEGO Indonesia
-Jun 2012 - Jan 2013 (7 months)
-I worked for EMAS project, an USAID funded project joint with 
-JHPIEGO, aiming on minimizing number of deaths during prenatal and 
-postpartum period in 6 provinces in Indonesia. One of the outputs of 
-EMAS project was to develop a SMS based learning system for 
-midwives in remote areas, named Learning & Performance 
-Reinforcement System (LPR).
-LPR has 2 sub-systems: SMS service & system management (web). 
-Both systems communicate via Web Service (REST).
-The SMS service is built using Java, SMSLib, Jetty, JPA (EclipseLink), 
-and iTegno GPRS modem. System management was built using 
-HTML5, CSS3, and JQuery. Yii (PHP framework) & MySQL, deployed 
-on Apache.
-Role: ICT Specialist
-Responsibilities: Design the system architecture based on system 
-requirement defined by ICT Advisor. Develop and test both systems 
-features.
-Web Developer at ASEAN Foundation (AF)
-Jul 2011 - Jan 2012 (6 months)
-ASEAN Foundation is one of Southeast Asian Nations bodies, focusing 
-on social development and building awareness of ASEAN. AF, funded 
-by Japan
-ASEAN Solidarity Fund, initiated a project for early detections and 
-report system of Avian Influenza, named
-Communication and Information System for the Control of Avian 
-Influenza (CISCAI).Created with SEEK Profile
-The web based system used custom Joomla components, including 
-GIS application (MapServer, OpenLayers, and OpenStreetMap).
-Role: Web Programmer
-Responsibility: Coordinate with System Administrator for bug fixing and 
-minor web features development.
-Trainer at Perdhaki Foundation
-Jan 2011 - Jan 2011 (1 month or less)
-PERDHAKI is a Catholic agency in Indonesia focusing on healthcare 
-issues. Perdhaki held Hospital Information System training series for IT 
-staff from 13 hospitals in Indonesia.
-Ten days Web development training for IT hospital staff. Consist of web 
-basic concepts, HTML & CSS, web request & response mechanism, 
-PHP (MVC concept) development, and simple CRUD operations to 
-MySQL.
-Role: PHP & Web Trainer
+
+Summary 
+
+
+
+
+Career history 
+
+
+
+
+
+
 Web Developer at PT. Mitra Solusi Telematika (MST)
 Jan 2008 - Aug 2009 (1 year 7 months)
 MST is a Subsidiary of Tiara Marga Trakindo group (Indonesia), 
