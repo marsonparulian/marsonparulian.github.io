@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marson Parulian profile page">
+    <title>CV of Marson Parulian</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        h2 {
+            color: darkgreen;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+        }
+
+    </style>
+</head>
+
+<body class="container">
+    <main class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="text-center">CV: Marson Parulian</h1>
+            <section id="contact-detail" class="text-center">
+                <div>marson.parulian@gmail.com</div>
+                <div>+61 424 917 401</div>
+            </section>
+            <section id="summary">
+                <h2>Summary</h2>
+
+                <p>
+                    I am a full stack web developer, with 5+ years of experience,
+                    currently looking for a backend oriented position.
+                    The technology stack I used in the last 2 years: Node.js, Express, MongoDB, REST API, Apollo
+                    GraphQL, Golang, Docker, AWS,
+                    React, Redux, Vue, Ionic.
+                </p>
+                <p>
+                    I am a test oriented developer: I design and write test, whenever feasible, before write the code.
+                    My testing approach is top-down (user perspective) where I started from E2E or integration testing
+                    then water down to unit tests.
+                </p>
+                <p>
+                    I am experienced in working in an agile team, using colaboration method and tools like Scrum, Jira,
+                    Github, etc.
+                </p>
+
+                <p>I quitted working in 2017 due to eye problem. Since 2020 I learned to use screen reader, so I can
+                    code without seeing the screen. Currently ~95% of time I code with screen reader (Demos are listed
+                    in link).
+                </p>
+                <p>
+                    In the past projects I had used various technologies such as: PHP
+                    frameworks, MySQL, JQuery, and Java.
+                </p>
+                <p>
+                    I have knowledge and practical skill (screen reader user) to develop an
+                    accessible web application. I completed a short online course titled
+                    "Introduction to Web Accessibility" in Dec 2020 - Jan 2021.</p>
+            </section>
+            <section id="links">
+                <h2>Links</h2>
+                <dl>
+                    <dt>Demo projects</dt>
+                    <dd><a href="marsonparulian.github.io">marsonparulian.github.io</a></dd>
+                    <dt>Github</dt>
+                    <dd><a href="https://github.com/marsonparulian">Github.com/marsonparulian</a></dd>
+                    <dt>Articles</dt>
+                    <dd><a href="https://dev.to/marsonparulian">dev.to/marsonparulian</a></dd>
+                </dl>
+            </section>
+            <section id="technology-stack">
+                <h2>Technology Stack</h2>
+                <div class="item-box">
+                    <h3>Languages</h3>
+                    <p>Javascript, Typescript, Go, Rust, PHP, Java.</p>
+                </div>
+                <div class="item-box">
+                    <h3>Back End</h3>
+                    <p>Node.js, Express.js, GraphQL, Apollo server, MongoDB, MySQL, Passport.js, JWT, RESTful API.</p>
+                </div>
+                <div class="item-box">
+                    <h3>Testing</h3>
+                    <p>
+                        Jest, supertest, Testing library (React), Jasmine, Mocha, <code>ExecuteOperation</code>
+                        (Apollo), Puppeteer.js, Selenium.
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3>DevOps</h3>
+                    <p>Github actions, Docker, AWS.</p>
+                </div>
+                <div class="item-box">
+                    <h3>Front End</h3>
+                    <p>React.js, Redux, Vue, Ionic, HTML5, Accessibility knowledge, JQuery.</p>
+                </div>
+            </section>
+            <section id="work-history">
+                <h2>Work History</h2>
+                <div class="item-box">
+                    <h3>Full Stack Developer at Hive Empire (Finder.com.au)</h3>
+                    <div class="period">Jun 2016 - Feb 2017 (8 months)</div>
+                    <ul>
+                        <li>Enhance and fix bugs on the existed system on backend (PHP
+                            WordPress) and frontend (Vanilla JS, HTML, CSS).</li>
+                        <li>Developed additional WordPress page (PHP, MySQL, HTML, and
+                            CSS).</li>
+                        <li>Developed frontend (React JS & HTML) part of a credit score
+                            application embedded in the WordPress system.</li>
+                    </ul>
+                </div>
+                <div class="item-box">
+                    <h3>Systems Architect at ASEAN Foundation (Indonesia) &
+                        SEACON (Malaysia)</h3>
+                    <div class="period">Feb 2013 - Apr 2014 (1 year 1 month)</div>
+                    <p>
+                        Developed web based knowledge sharing system between scholars, practitioners, and farmers.
+                        The system was built using CakePHP, MySQL, Twitter Bootstrap,
+                        JQuery, JQuery UI, HTML5, CSS3, and Apache.
+                    </p>
+                    <p>
+                        Responsibilities: Conduct system needs assessment, design system
+                        requirement and features, design user interface, and develop the
+                        system. Report to project manager, coordinating with Web
+                        Administrator, and manage System Testers.
+                    </p>
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3>ICT Specialist at JHPIEGO Indonesia</h3>
+                    <div class="period">Jun 2012 - Jan 2013 (7 months)</div>
+                    <p>
+                        Developed a SMS based learning system for
+                        midwives in remote areasin Indonesia, named Learning & Performance
+                        Reinforcement System (LPR).
+                    </p>
+                    <p>
+                        LPR has 2 sub-systems: SMS service & system management (web).
+                        Both systems communicate via Web Service (REST API).
+                        The SMS service is built using Java, SMSLib, Jetty, JPA (EclipseLink),
+                        and iTegno GPRS modem. System management was built using
+                        HTML5, CSS3, and JQuery. Yii (PHP framework) & MySQL, deployed
+                        on Apache.
+                    </p>
+                    <p>
+                        Responsibilities: Design the system architecture based on system
+                        requirement defined by ICT Advisor. Develop and test both systems
+                        features.
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3>Web Developer at ASEAN Foundation </h3>
+                    <div class="period">Jul 2011 - Jan 2012 (6 months)</div>
+                    <p>
+                        Joined a project for early detections and
+                        report system of Avian Influenza, named
+                        Communication and Information System for the Control of Avian
+                        Influenza (CISCAI).
+                        The web based system used custom Joomla components, including
+                        GIS application (MapServer, OpenLayers, and OpenStreetMap).
+                    </p>
+                    <p>
+                        Responsibility: Coordinate with System Administrator for bug fixing and
+                        minor web features development.
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3></h3>
+                    <div class="period"></div>
+                </div>
+                <div class="item-box">
+                    <h3>Trainer at Perdhaki Foundation (Indonesia)</h3>
+                    <div class="period">Jan 2011</div>
+                    <p>
+                        Web development Trainer for IT hospitals staff. Consist of web
+                        basic concepts, HTML & CSS, web request & response mechanism,
+                        PHP (MVC concept) development, and simple CRUD operations to
+                        MySQL.
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3>Web Developer at PT. MST (Indonesia)</h3>
+                    <div class="period">Jan 2008 - Aug 2009 (1 year 7 months)</div>
+                    <p>
+                        Part of development team of an IT solution company.
+                        Responsible on developing webbased system depending on the need of projects.
+                    </p>
+                    <p>
+                        Projects involved :
+                    <ul>
+                        <li>Property Management System
+                            Web based property leasing management system, include processes
+                            from LoI - LoU - LoA. Built using PHP,
+                            Apache, MySQL, and JQuery. A custom full AJAX based with MVC
+                            concept applied.
+                            Part of a team of 1 system analyst and 4 programmers. Responsible for
+                            developing and maintaining the base
+                            architecture of custom framework and libraries.
+                        </li>
+                        <li>Advanced Sales Incentive System
+                            A web-based application to maintain and calculate the amount of each
+                            salesperson's incentive of PT. Tigaraksa Satria (Indonesian company).
+                            The application was built using PHP, ZendCore Apache, Oracle
+                            database (oci8 connector), and Javascript.
+                            Part of a team consist of 1 system analyst and 3 programmers.
+                            Responsible for developing modules.
+                        </li>
+                        <li>Trade Fund Management System
+                            Fund transfer application between PT. Tigaraksa Satria (main
+                            distributor), product principles, and nodes of distribution chain. The
+                            application was built using PHP, ZendCore Apache, Oracle, and PHP.
+                            Part of a team consist of 1 system analyst and 3 programmers.
+                            Responsible for developing modules.
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="item-box">
+                    <h3>Field Inspector at A Construction management</h3>
+                    <div class="period">Oct 2008 - Dec 2008 (3 months)</div>
+                    <p>
+                        Job description : Inspected installation of network of computers and the development of
+                        custom applicationfor construction project of Presidential Command and
+                        Control Centre (later
+                        known as Situation Room) in Jakarta, Indonesia.
+                    </p>
+                </div>
+                <div>
+                    <h3>Java UI Programmer at Wisesa Consulting (Indonesia)</h3>
+                    <div class="period">Sep 2007 - Dec 2007 (4 months)</div>
+                    <p>
+                        I was Part of 3 members team developing custom application built with J2EE technology with
+                        Swing,
+                        Hibernate,
+                        PostgreSQL, and Jasper Report. My task was to develop XML based Swing UI.
+                    </p>
+                </div>
+                <div>
+                    <h3></h3>
+                    <div class="period"></div>
+                </div>
+                <div>
+                    <h3></h3>
+                    <div class="period"></div>
+                </div>
+            </section>
+            <section id="other">
+                <h2>Other</h2>
+                <div class="box-item">
+                    <h3>Languages</h3>
+                    <p>Indonesian</p>
+                </div>
+                <div class="box-item">
+                    <h3>Education</h3>
+                    <p>Bachelor of Agricultural Engineering. Bogor Agricultural University.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <hr />
+    <footer class="row justify-content-center">
+        <div class="col-lg-8">
+            Original : <a href="https://marsonparulian.github.io/cv.html">
+                marsonparulian.github.io/cv.html</a>
+        </div>
+    </footer>
+</body>
+
+</html>
