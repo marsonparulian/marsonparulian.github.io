@@ -5,61 +5,23 @@ marson.parulian@gmail.com
 Summary 
 
 
-
-
 Career history 
 
 
 
 
-
-
-Web Developer at PT. Mitra Solusi Telematika (MST)
 Jan 2008 - Aug 2009 (1 year 7 months)
 MST is a Subsidiary of Tiara Marga Trakindo group (Indonesia), 
 focusing on IT services & solution including custom system
 development. MST held responsible for IT services & solution of all 10 
 subsidiary companies and other clients.
 Role: Web Programmer
-Part of custom development team. Responsible on developing webbased system depending on the need of projects.
-Projects involved:
-❖ Property Management System
-Web based property leasing management system, include processes 
-from LoI - LoU - LoA. Built using PHP,
-Apache, MySQL, and JQuery. A custom full AJAX based with MVC 
-concept applied.Created with SEEK Profile
-Part of a team of 1 system analyst and 4 programmers. Responsible for
-developing and maintaining the base
-architecture of custom framework and libraries.
-❖ Advanced Sales Incentive System
-A web-based application to maintain and calculate the amount of each 
-salesperson's incentive of PT. Tigaraksa Satria (Indonesian company). 
-The application was built using PHP, ZendCore Apache, Oracle 
-database (oci8 connector), and Javascript.
-Part of a team consist of 1 system analyst and 3 programmers. 
-Responsible for developing modules.
-❖ Trade Fund Management System
-Fund transfer application between PT. Tigaraksa Satria (main 
-distributor), product principles, and nodes of distribution chain. The 
-application was built using PHP, ZendCore Apache, Oracle, and PHP.
-Part of a team consist of 1 system analyst and 3 programmers. 
-Responsible for developing modules.
-Field Inspector at A Construction management
-Oct 2008 - Dec 2008 (2 months)
-company, involved in construction of Presidential Command and 
-Control Centre (later
-known as Situation Room) in Jakarta, Indonesia.
-Role: Field Inspector
-Inspected installation of network of computers and the development of 
-custom application.
-Programmer at Wisesa Consulting
-Sep 2007 - Nov 2007 (2 months)
-IT solution company.
-Part of 3 members team developing custom application that handles 
-inventory, purchase, and delivery operations.Created with SEEK Profile
-The application was built using J2EE technology with Swing, Hibernate, 
-PostgreSQL, and Jasper Report.
-Role: UI Programmer (Java)
+Part of custom dev
+
+company, 
+
+
+
 Developed XML based (Swing) user interface.
 Skills HTML5, JQuery, Node.JS, Express.JS, Mongo Db, React Redux, 
 React.JS, Web Application Testing, Selenium Automation, Docker, 
