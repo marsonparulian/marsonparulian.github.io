@@ -156,11 +156,11 @@ async function nextRound() {
     );
 
 
-    // Every 200 milliseconds put each `fakeNumbers` consecutively to HTML element `#box-opened`
+    // Every 100 milliseconds put each `fakeNumbers` consecutively to HTML element `#box-opened`
     const boxOpened = document.getElementById('box-opened');
     for (let i = 0; i < fakeNumbers.length; i++) {
         boxOpened.textContent = fakeNumbers[i];
-        await new Promise(resolve => setTimeout(resolve, 200)); // Delay of 200 milliseconds
+        await new Promise(resolve => setTimeout(resolve, 100)); // Delay of 100 milliseconds
     }
 
     // Render randomNumbers[0] to `#box-opened` and `randomNumbers[1]` to `#box-closed`
