@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         connect: true,
         range: {
             'min': 1,
-            'max': 25
+            'max': 100
         },
         tooltips: [true, true], // Tooltips for both handles
         format: {
