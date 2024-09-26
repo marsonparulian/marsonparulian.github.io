@@ -1,12 +1,182 @@
-<!DOCTYPE html>
-<html>
-
 <head>
+    <!-- Force landscape orientation -->
+    <meta name="screen-orientation" content="landscape">
 
+    <!-- Set viewport for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <!-- Import Bootstrap CDN library -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Import FontAwesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Import noUiSlider CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css" rel="stylesheet">
+
+    <!-- Load game.js -->
+    <script src="game.js" defer></script>
+
+    <style>
+        .number-box {
+            width: 45%;
+            height: 45vh;
+            font-size: 7rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            margin: 10px;
+            background-color: lightblue;
+            background-image: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            transition: background-color 0.3s ease;
+        }
+
+        #game-board {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+        }
+
+        .number-box+.number-box {
+            margin-left: 5%;
+        }
+
+        /* Hide content of #box-closed */
+        #box-closed {
+            position: relative;
+            color: transparent;
+            /* Initially hide the text */
+            background-color: lightgray;
+            /* Differentiating background */
+        }
+
+        /* Show content on hover for non-touch screens */
+        #box-closed:hover {
+            color: black;
+            background-color: lightblue;
+        }
+
+        /* For touch devices: Show content when touched */
+        .touched {
+            color: black;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-info div {
+            margin: 0 10px;
+        }
+
+        #range-slider-container,
+        #rounds-slider-container {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>This is secret number page</h1>
-</body>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
+        <h1>Secret Number</h1>
 
-</html>
+        <div class="header-info">
+            <div id="active-player" class="text-center">Player 1</div>
+            <div id="current-turn">Turn: 1</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" id="restart-btn" onclick="nextRound()">
+                <i class="fas fa-redo-alt"></i>
+            </button>
+            <button class="btn btn-secondary" id="settings-btn" data-toggle="modal" data-target="#settingsModal">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        <div id="game-board">
+            <div id="box-opened" class="number-box">5</div>
+            <div id="box-closed" class="number-box">8</div>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="rounds-slider">Number of Rounds: <span id="rounds-value"></span></label>
+                            <div id="rounds-slider-container">
+                                <div id="rounds-slider"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="range-slider">Number Range: <span id="range-value"></span></label>
+                            <div id="range-slider-container">
+                                <div id="range-slider"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div aria-live="polite" aria-atomic="true" style="position: relative; z-index: 10000;">
+        <div id="settingsToast" class="toast" style="position: absolute; top: 10px; right: 10px;" data-delay="2000">
+            <div class="toast-header">
+                <strong class="mr-auto">Notification</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS for modal functionality -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- noUiSlider JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boxClosed = document.getElementById('box-closed');
+
+            // For touch devices, toggle the content on touch
+            boxClosed.addEventListener('touchstart', () => {
+                boxClosed.classList.add('touched');
+            });
+
+            // Re-hide content when touch ends (optional)
+            boxClosed.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    boxClosed.classList.remove('touched');
+                }, 1000); // You can adjust the time before hiding again
+            });
+        });
+    </script>
+</body>
