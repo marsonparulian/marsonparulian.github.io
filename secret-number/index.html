@@ -119,6 +119,17 @@
                 </div>
                 <div class="modal-body">
                     <form id="settings-form">
+
+                        <!-- Users section with 2 text input vertically. Both inputs are array input with name `users` -->
+                        <div class="form-group">
+                            <label for="player-1">Player 1:</label>
+                            <input type="text" id="player-1" name="users[]" class="form-control" placeholder="Enter Player 1 name">
+                        </div>
+                        <div class="form-group">
+                            <label for="player-2">Player 2:</label>
+                            <input type="text" id="player-2" name="users[]" class="form-control" placeholder="Enter Player 2 name">
+                        </div>
+
                         <div class="form-group">
                             <label for="rounds-slider">Number of Rounds: <span id="rounds-value"></span></label>
                             <div id="rounds-slider-container">
@@ -134,7 +145,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+                    <!-- Save settings button will close the modal -->
+                    <button type="button" id="save-settings-btn" class="btn btn-primary" data-dismiss="modal">Save Settings</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
