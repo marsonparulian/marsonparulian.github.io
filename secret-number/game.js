@@ -130,6 +130,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show a toast notification for saved settings
         showToast("Settings saved successfully!");
     });
+
+    // Attach closed card callbacks 
+    attachClosedCardCallbacks();
 });
 
 // Function to show a Bootstrap Toast instead of using an alert
@@ -167,4 +170,21 @@ async function nextRound() {
     boxOpened.textContent = randomNumbers[0];
     const boxClosed = document.getElementById('box-closed');
     boxClosed.textContent = randomNumbers[1];
+}
+
+// Attach closed cards behaviour
+async function attachClosedCardCallbacks() {
+    const boxClosed = document.getElementById('box-closed');
+
+    // For touch devices, toggle the content on touch
+    boxClosed.addEventListener('touchstart', () => {
+        boxClosed.classList.add('touched');
+    });
+
+    // Re-hide content when touch ends (optional)
+    boxClosed.addEventListener('touchend', () => {
+        setTimeout(() => {
+            boxClosed.classList.remove('touched');
+        }, 1000); // You can adjust the time before hiding again
+    });
 }

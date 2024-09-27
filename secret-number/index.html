@@ -123,11 +123,13 @@
                         <!-- Users section with 2 text input vertically. Both inputs are array input with name `users` -->
                         <div class="form-group">
                             <label for="player-1">Player 1:</label>
-                            <input type="text" id="player-1" name="users[]" class="form-control" placeholder="Enter Player 1 name">
+                            <input type="text" id="player-1" name="users[]" class="form-control"
+                                placeholder="Enter Player 1 name">
                         </div>
                         <div class="form-group">
                             <label for="player-2">Player 2:</label>
-                            <input type="text" id="player-2" name="users[]" class="form-control" placeholder="Enter Player 2 name">
+                            <input type="text" id="player-2" name="users[]" class="form-control"
+                                placeholder="Enter Player 2 name">
                         </div>
 
                         <div class="form-group">
@@ -146,7 +148,8 @@
                 </div>
                 <div class="modal-footer">
                     <!-- Save settings button will close the modal -->
-                    <button type="button" id="save-settings-btn" class="btn btn-primary" data-dismiss="modal">Save Settings</button>
+                    <button type="button" id="save-settings-btn" class="btn btn-primary" data-dismiss="modal">Save
+                        Settings</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -174,21 +177,4 @@
     <!-- noUiSlider JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const boxClosed = document.getElementById('box-closed');
-
-            // For touch devices, toggle the content on touch
-            boxClosed.addEventListener('touchstart', () => {
-                boxClosed.classList.add('touched');
-            });
-
-            // Re-hide content when touch ends (optional)
-            boxClosed.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    boxClosed.classList.remove('touched');
-                }, 1000); // You can adjust the time before hiding again
-            });
-        });
-    </script>
 </body>
