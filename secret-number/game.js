@@ -5,12 +5,19 @@ let db;
 // Default settings
 const defaultSettings = {
     id: 1, // Single record to update the settings
+    players: [
+        { name: "Captain Underpants" },
+        { name: "Dog Man" }
+    ],
     rounds: 5,
     minRange: 2,
     maxRange: 8
 };
 // Global settings
 let settings;
+
+// Elements for player name inputs
+const playerInputs = document.getElementsByName('users[]');
 
 // Initialize the sliders at the top level
 let roundsSlider = document.getElementById('rounds-slider');
@@ -40,6 +47,8 @@ const saveSettings = (settings) => {
     const transaction = db.transaction(['settings'], 'readwrite');
     const store = transaction.objectStore('settings');
     store.put(settings);
+
+    updateSettingsUI(settings); // Update UI with loaded or default settings
 };
 
 const loadSettings = () => {
@@ -48,8 +57,8 @@ const loadSettings = () => {
     const request = store.get(1); // Assume only one record (id=1)
 
     request.onsuccess = (event) => {
-        settings = event.target.result || defaultSettings; // If no settings in DB, use default
-        updateSettingsUI(settings); // t: Refactored to update UI with loaded or default settings
+        settings = Object.assign({}, defaultSettings, event.target.result,)// Replace `defaultSettings` elements by values from DB
+        updateSettingsUI(settings); // Update UI with loaded or default settings
     };
 
     request.onerror = (event) => {
@@ -57,8 +66,17 @@ const loadSettings = () => {
     };
 };
 
-// Function to update UI settings based on the loaded or default values
+// Function to update all UI related to `settings`, not only in *Settings* modal,  based on the loaded or default values
 const updateSettingsUI = (settings) => {
+    console.log('to update UI setting');
+    console.log(settings);
+    // Show current player's name
+    document.getElementById('active-player').textContent = settings.players[0].name;
+
+    // Populate player names in the inputs
+    playerInputs[0].value = settings.players[0].name;
+    playerInputs[1].value = settings.players[1].name;
+
     roundsSlider.noUiSlider.set(settings.rounds);
     rangeSlider.noUiSlider.set([settings.minRange, settings.maxRange]);
 
@@ -117,9 +135,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const rounds = roundsSlider.noUiSlider.get();
         const [minRange, maxRange] = rangeSlider.noUiSlider.get();
 
+        // Capture player names from input fields
+        const players = [
+            { name: playerInputs[0].value },
+            { name: playerInputs[1].value }
+        ];
+
         // Capture values to global settings
         settings = {
             id: 1, // Single record to update the settings
+            players: players,
             rounds: Math.round(rounds),
             minRange: Math.round(minRange),
             maxRange: Math.round(maxRange)
@@ -147,26 +172,21 @@ const showToast = (message) => {
 
 // Start next round
 async function nextRound() {
-    // Generate 2 random numbers. Starts from `settings.minRange` to `settings.maxRange`
     const randomNumbers = [
         Math.floor(Math.random() * (settings.maxRange - settings.minRange + 1)) + settings.minRange,
         Math.floor(Math.random() * (settings.maxRange - settings.minRange + 1)) + settings.minRange
     ];
 
-    // Generate 12 random numbers within the same range
     const fakeNumbers = Array.from({ length: 12 }, () =>
         Math.floor(Math.random() * (settings.maxRange - settings.minRange + 1)) + settings.minRange
     );
 
-
-    // Every 100 milliseconds put each `fakeNumbers` consecutively to HTML element `#box-opened`
     const boxOpened = document.getElementById('box-opened');
     for (let i = 0; i < fakeNumbers.length; i++) {
         boxOpened.textContent = fakeNumbers[i];
         await new Promise(resolve => setTimeout(resolve, 100)); // Delay of 100 milliseconds
     }
 
-    // Render randomNumbers[0] to `#box-opened` and `randomNumbers[1]` to `#box-closed`
     boxOpened.textContent = randomNumbers[0];
     const boxClosed = document.getElementById('box-closed');
     boxClosed.textContent = randomNumbers[1];
@@ -176,12 +196,10 @@ async function nextRound() {
 async function attachClosedCardCallbacks() {
     const boxClosed = document.getElementById('box-closed');
 
-    // For touch devices, toggle the content on touch
     boxClosed.addEventListener('touchstart', () => {
         boxClosed.classList.add('touched');
     });
 
-    // Re-hide content when touch ends (optional)
     boxClosed.addEventListener('touchend', () => {
         setTimeout(() => {
             boxClosed.classList.remove('touched');
