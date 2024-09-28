@@ -180,7 +180,10 @@ async function nextRound() {
         return gameFinished();
     }
 
-    // TODO: get the next player and set it to `setCurrentPlayer
+    // Get the next player and set it to `setCurrentPlayer
+    const currentPlayer = settings.players[(currentRound - 1) % 2];
+    setCurrentPlayer(currentPlayer);
+
     // Update the `currentRound` in UI
     document.getElementById('current-turn').textContent = `Round: ${currentRound}`;
 
@@ -220,7 +223,7 @@ async function attachClosedCardCallbacks() {
 }
 function setCurrentPlayer(player) {
     // Show current player's name
-    document.getElementById('active-player').textContent = settings.players[0].name;
+    document.getElementById('active-player').textContent = player.name;
 }
 
 // After effect when game is finished (all rounds has been completed)
