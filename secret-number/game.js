@@ -16,6 +16,9 @@ const defaultSettings = {
 // Global settings
 let settings;
 
+// Mark the current round
+let currentRound = 0;
+
 // Elements for player name inputs
 const playerInputs = document.getElementsByName('users[]');
 
@@ -48,7 +51,7 @@ const saveSettings = (settings) => {
     const store = transaction.objectStore('settings');
     store.put(settings);
 
-    updateSettingsUI(settings); // Update UI with loaded or default settings
+    setCurrentPlayer(settings.players[0]);
 };
 
 const loadSettings = () => {
@@ -58,7 +61,11 @@ const loadSettings = () => {
 
     request.onsuccess = (event) => {
         settings = Object.assign({}, defaultSettings, event.target.result,)// Replace `defaultSettings` elements by values from DB
+        setCurrentPlayer(settings.players[0]);
         updateSettingsUI(settings); // Update UI with loaded or default settings
+
+        // Now start the game!
+        nextRound();
     };
 
     request.onerror = (event) => {
@@ -68,11 +75,6 @@ const loadSettings = () => {
 
 // Function to update all UI related to `settings`, not only in *Settings* modal,  based on the loaded or default values
 const updateSettingsUI = (settings) => {
-    console.log('to update UI setting');
-    console.log(settings);
-    // Show current player's name
-    document.getElementById('active-player').textContent = settings.players[0].name;
-
     // Populate player names in the inputs
     playerInputs[0].value = settings.players[0].name;
     playerInputs[1].value = settings.players[1].name;
@@ -158,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Attach closed card callbacks 
     attachClosedCardCallbacks();
+
 });
 
 // Function to show a Bootstrap Toast instead of using an alert
@@ -172,6 +175,15 @@ const showToast = (message) => {
 
 // Start next round
 async function nextRound() {
+    // Increase `currentRound`, end game if passes `settings.rounds`
+    if (++currentRound > settings.rounds) {
+        return gameFinished();
+    }
+
+    // TODO: get the next player and set it to `setCurrentPlayer
+    // Update the `currentRound` in UI
+    document.getElementById('current-turn').textContent = `Round: ${currentRound}`;
+
     const randomNumbers = [
         Math.floor(Math.random() * (settings.maxRange - settings.minRange + 1)) + settings.minRange,
         Math.floor(Math.random() * (settings.maxRange - settings.minRange + 1)) + settings.minRange
@@ -205,4 +217,13 @@ async function attachClosedCardCallbacks() {
             boxClosed.classList.remove('touched');
         }, 1000); // You can adjust the time before hiding again
     });
+}
+function setCurrentPlayer(player) {
+    // Show current player's name
+    document.getElementById('active-player').textContent = settings.players[0].name;
+}
+
+// After effect when game is finished (all rounds has been completed)
+async function gameFinished() {
+    alert("Congrats! Game is finished!");
 }
