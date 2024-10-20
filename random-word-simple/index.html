@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Double Click Redraw</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', redrawCanvas);
+        const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit"];
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        // Set the canvas to fill the whole page
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Redraw function
+        function redrawCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            // Example drawing
+            const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
+            context.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+            const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+            context.font = 'bold 480px arial';
+            const textMetrics = context.measureText(randomWord);
+            const x = (canvas.width - textMetrics.width) / 2;
+            const y = (canvas.height / 2) + (textMetrics.actualBoundingBoxAscent / 2);
+            context.letterSpacing = '8px';
+            context.fillText(randomWord, x, y);
+        }
+
+        // Add double-click event listener
+        canvas.addEventListener('dblclick', () => {
+            redrawCanvas();
+        });
+    </script>
+</body>
+</html>
