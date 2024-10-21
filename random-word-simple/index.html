@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Double Click Redraw</title>
+    <title>MindView: Read a simple word</title>
     <style>
         body,
         html {
@@ -19,27 +19,62 @@
             width: 100%;
             height: 100%;
         }
+
+        #zoomControl {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+            transition: background 0.3s, transform 0.3s;
+        }
     </style>
 </head>
 
 <body>
+    <div id="zoomControl">
+        <input type="range" id="zoom"
+            aria-label="Font size controller. Move right to enlarge the font - move left to make the fonts smaller"
+            min="10" max="100" value="100" step="10">
+    </div>
     <canvas id="canvas"></canvas>
     <script>
-        const fontWidthPercent = 100;
-        document.addEventListener('DOMContentLoaded', redrawCanvas);
-        const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net",
-            "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit"];
+        let fontWidthPercent = 100;
+        document.addEventListener('DOMContentLoaded', () => {
+            randomizeWord();
+            randomizeColor();
+            redrawCanvas();
+        });
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
+        let randomWord = "";
+        let wordColor = "black";
 
         // Set the canvas to fill the whole page
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            redrawCanvas();
         }
 
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
+
+        // Function to randomize word
+        function randomizeWord() {
+            const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit", "bug", "fox", "gem", "hill", "kite", "leaf", "milk", "nest", "owl", "sun", "moon", "star", "cake", "ice", "red", "cookie", "fun", "play", "nice", "run", "eat", "snack", "ball", "soon", "swim", "pan", "jump", "laugh", "tie", "hug"];
+            randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+            randomizeColor();
+        }
+
+        // Function to randomize color
+        function randomizeColor() {
+            const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
+            wordColor = colors[Math.floor(Math.random() * colors.length)];
+        }
 
         // Redraw function
         function redrawCanvas() {
@@ -47,18 +82,14 @@
             context.clearRect(0, 0, canvas.width, canvas.height);
 
             // Set the color for the word
-            const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
-            context.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-
-            // Select a random word
-            const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+            context.fillStyle = wordColor;
 
             // Calculate the font size to fit the width percentage of the canvas
             let fontSize = 900;
             context.font = `bold ${fontSize}px Arial`;
             let textMetrics = context.measureText(randomWord);
-            while (textMetrics.width > (canvas.width * (fontWidthPercent / 100))) {
-                fontSize -= 4;
+            while (textMetrics.width > (canvas.width * (fontWidthPercent / 100)) && fontSize > 0) {
+                fontSize -= 1;
                 context.font = `bold ${fontSize}px Arial`;
                 textMetrics = context.measureText(randomWord);
             }
@@ -69,16 +100,38 @@
 
             // Draw the word on the canvas
             context.fillText(randomWord, x, y);
-
-            // Log the canvas width and the word width to ensure they are similar
-            console.log(`Canvas width: ${canvas.width}, Word width: ${textMetrics.width}`);
         }
 
         // Add double-click event listener
         canvas.addEventListener('dblclick', () => {
+            randomizeWord();
             redrawCanvas();
         });
 
+        // Add zoom control functionality
+        const zoomControl = document.getElementById('zoom');
+        zoomControl.addEventListener('input', (event) => {
+            fontWidthPercent = event.target.value;
+            redrawCanvas();
+        });
+
+        // Add focus and interaction effects for zoom control
+        const zoomControlContainer = document.getElementById('zoomControl');
+        const showZoomControl = () => {
+            zoomControlContainer.style.background = 'rgba(255, 255, 255, 1)';
+            zoomControlContainer.style.transform = 'scale(1.5)';
+        };
+        const hideZoomControl = () => {
+            zoomControlContainer.style.background = 'rgba(255, 255, 255, 0.1)';
+            zoomControlContainer.style.transform = 'scale(1)';
+        };
+
+        zoomControl.addEventListener('focus', showZoomControl);
+        zoomControl.addEventListener('blur', hideZoomControl);
+        zoomControl.addEventListener('mousedown', showZoomControl);
+        zoomControl.addEventListener('mouseup', hideZoomControl);
+        zoomControlContainer.addEventListener('mouseenter', showZoomControl);
+        zoomControlContainer.addEventListener('mouseleave', hideZoomControl);
     </script>
 </body>
 
