@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canvas Double Click Redraw</title>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             overflow: hidden;
             height: 100%;
         }
+
         canvas {
             display: block;
             width: 100%;
@@ -18,11 +21,14 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="canvas"></canvas>
     <script>
+        const fontWidthPercent = 100;
         document.addEventListener('DOMContentLoaded', redrawCanvas);
-        const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit"];
+        const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net",
+            "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit"];
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
 
@@ -37,23 +43,43 @@
 
         // Redraw function
         function redrawCanvas() {
+            // Clear the canvas
             context.clearRect(0, 0, canvas.width, canvas.height);
-            // Example drawing
+
+            // Set the color for the word
             const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
             context.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+
+            // Select a random word
             const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
-            context.font = 'bold 480px arial';
-            const textMetrics = context.measureText(randomWord);
+
+            // Calculate the font size to fit the width percentage of the canvas
+            let fontSize = 900;
+            context.font = `bold ${fontSize}px Arial`;
+            let textMetrics = context.measureText(randomWord);
+            while (textMetrics.width > (canvas.width * (fontWidthPercent / 100))) {
+                fontSize -= 4;
+                context.font = `bold ${fontSize}px Arial`;
+                textMetrics = context.measureText(randomWord);
+            }
+
+            // Calculate the x and y position to center the word
             const x = (canvas.width - textMetrics.width) / 2;
-            const y = (canvas.height / 2) + (textMetrics.actualBoundingBoxAscent / 2);
-            context.letterSpacing = '8px';
+            const y = (canvas.height / 2) + ((textMetrics.actualBoundingBoxAscent - textMetrics.actualBoundingBoxDescent) / 2);
+
+            // Draw the word on the canvas
             context.fillText(randomWord, x, y);
+
+            // Log the canvas width and the word width to ensure they are similar
+            console.log(`Canvas width: ${canvas.width}, Word width: ${textMetrics.width}`);
         }
 
         // Add double-click event listener
         canvas.addEventListener('dblclick', () => {
             redrawCanvas();
         });
+
     </script>
 </body>
+
 </html>
