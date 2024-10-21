@@ -65,7 +65,13 @@
 
         // Function to randomize word
         function randomizeWord() {
-            const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar", "rib", "tap", "pit", "bug", "fox", "gem", "hill", "kite", "leaf", "milk", "nest", "owl", "sun", "moon", "star", "cake", "ice", "red", "cookie", "fun", "play", "nice", "run", "eat", "snack", "ball", "soon", "swim", "pan", "jump", "laugh", "tie", "hug"];
+            const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "dew",
+                "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar",
+                "rib", "tap", "pit", "bug", "fox", "gem", "hill", "kite", "leaf", "milk", "nest", "owl", "nil",
+                "sun", "moon", "star", "cake", "ice", "red", "cookie", "fun", "play", "nice", "run", "eat",
+                "bird", "seal", "owl", "cow", "donut", "ball", "sweet", "candy", "chips", "pop", "straw",
+                "cloud", "wind", "tree", "soil", "plum", "blue", "bike", "hand", "party", "rib", "mic", "neon",
+                "snack", "ball", "soon", "swim", "pan", "jump", "laugh", "tie", "hug"];
             randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
             randomizeColor();
         }
