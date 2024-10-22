@@ -152,7 +152,7 @@ let fontWidthPercent = 85;
 
   document.getElementById('decreaseFontWidthPercent').addEventListener('click', () => {
     if (fontWidthPercent <= 5) {
-        displayAlert('Font width percent has reached the minimum value.');
+        displayAlert('Minimum font size is reached!');
     } else {
         fontWidthPercent = Math.max(5, fontWidthPercent - 10);
         redrawCanvas();
@@ -161,7 +161,7 @@ let fontWidthPercent = 85;
 
   document.getElementById('increaseFontWidthPercent').addEventListener('click', () => {
     if (fontWidthPercent >= 95) {
-        displayAlert('Font width percent has reached the maximum value.');
+        displayAlert('Maximum font size is reached!');
     } else {
         fontWidthPercent = Math.min(95, fontWidthPercent + 10);
         redrawCanvas();
