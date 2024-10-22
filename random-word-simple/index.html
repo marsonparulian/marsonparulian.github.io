@@ -2,193 +2,195 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MindView: Read a simple word</title>
-<style>
-  body,
-  html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindView: Read a simple word</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
 
-  canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-  }
-  .btn {
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #fff;
-      border: none;
-      cursor: pointer;
-  }
-#control-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
 
-#fontWidthPercent-controller {
-    display: flex;
-    gap: 0px;
-}
-#toast-alert {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: yellow;
-    color: black;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    display: none;
-    z-index: 200;
-}
-</style>
+        .btn {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #control-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #fontWidthPercent-controller {
+            display: flex;
+            gap: 0px;
+        }
+
+        #toast-alert {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: yellow;
+            color: black;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 200;
+        }
+    </style>
 </head>
 
 <body>
-<div id="control-container">
-<div id="fontWidthPercent-controller">
-  <button id="decreaseFontWidthPercent" class="btn">
-      <img src="https://img.icons8.com/ios-glyphs/30/000000/minus.png" alt="Decrease Font Width">
-  </button>
-  <button id="increaseFontWidthPercent" class="btn">
-      <img src="https://img.icons8.com/ios-glyphs/30/000000/plus.png" alt="Increase Font Width">
-  </button>
-</div>
-<button id="refreshButton" class="btn" onclick="restart()">
-  <img src="https://img.icons8.com/ios-glyphs/30/000000/refresh.png" alt="Refresh">
-</button>
-</div>
-<canvas id="canvas"></canvas>
-<script>
-let fontWidthPercent = 85;
-  document.addEventListener('DOMContentLoaded', () => {
-      randomizeWord();
-      randomizeColor();
-      redrawCanvas();
-  });
-  const canvas = document.getElementById('canvas');
-  const context = canvas.getContext('2d');
-  let randomWord = "";
-  let wordColor = "black";
+    <div id="control-container">
+        <div id="fontWidthPercent-controller">
+            <button id="decreaseFontWidthPercent" class="btn">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/minus.png" alt="Decrease Font Width">
+            </button>
+            <button id="increaseFontWidthPercent" class="btn">
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/plus.png" alt="Increase Font Width">
+            </button>
+        </div>
+        <button id="refreshButton" class="btn" onclick="restart()">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/refresh.png" alt="Refresh">
+        </button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script>
+        let fontWidthPercent = 85;
+        document.addEventListener('DOMContentLoaded', () => {
+            randomizeWord();
+            randomizeColor();
+            redrawCanvas();
+        });
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        let randomWord = "";
+        let wordColor = "black";
 
-  // Set the canvas to fill the whole page
-  function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      redrawCanvas();
-  }
+        // Set the canvas to fill the whole page
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            redrawCanvas();
+        }
 
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-  // Function to randomize word
-  function randomizeWord() {
-      const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "dew",
-          "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar",
-          "rib", "tap", "pit", "bug", "fox", "gem", "hill", "kite", "leaf", "milk", "nest", "owl", "nil",
-          "sun", "moon", "star", "cake", "ice", "red", "cookie", "fun", "play", "nice", "run", "eat",
-          "bird", "seal", "owl", "cow", "donut", "ball", "sweet", "candy", "chips", "pop", "straw",
-              "cloud", "wind", "tree", "soil", "plum", "blue", "bike", "hand", "party", "rib", "mic", "neon",
-          "snack", "ball", "soon", "swim", "pan", "jump", "laugh", "tie", "hug"];
-      randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
-      randomizeColor();
-  }
+        // Function to randomize word
+        function randomizeWord() {
+            const randomWords = ["cat", "dog", "sun", "sky", "pen", "cup", "hat", "bat", "run", "fan", "dew",
+                "box", "lid", "net", "rat", "log", "pot", "tip", "map", "nap", "dot", "sip", "kit", "jar",
+                "rib", "tap", "pit", "bug", "fox", "gem", "hill", "kite", "leaf", "milk", "nest", "owl", "nil",
+                "sun", "moon", "star", "cake", "ice", "red", "cookie", "fun", "play", "nice", "run", "eat",
+                "bird", "seal", "owl", "cow", "donut", "ball", "sweet", "candy", "chips", "pop", "straw",
+                "cloud", "wind", "tree", "soil", "plum", "blue", "bike", "hand", "party", "rib", "mic", "neon",
+                "snack", "ball", "soon", "swim", "pan", "jump", "laugh", "tie", "hug"];
+            randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+            randomizeColor();
+        }
 
-  // Function to randomize color
-  function randomizeColor() {
-      const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
-      wordColor = colors[Math.floor(Math.random() * colors.length)];
-  }
+        // Function to randomize color
+        function randomizeColor() {
+            const colors = ["red", "darkblue", "darkgreen", "darkorange", "brown", "darkyellow", "darkpurple"];
+            wordColor = colors[Math.floor(Math.random() * colors.length)];
+        }
 
-  // Redraw function
-  function redrawCanvas() {
-      // Clear the canvas
-      context.clearRect(0, 0, canvas.width, canvas.height);
+        // Redraw function
+        function redrawCanvas() {
+            // Clear the canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Set the color for the word
-      context.fillStyle = wordColor;
+            // Set the color for the word
+            context.fillStyle = wordColor;
 
-      // Calculate the font size to fit the width percentage of the canvas
-      let fontSize = 900;
-      context.font = `bold ${fontSize}px Arial`;
-      let textMetrics = context.measureText(randomWord);
-      while (textMetrics.width > (canvas.width * (fontWidthPercent / 100)) && fontSize > 0) {
-          fontSize -= 1;
-          context.font = `bold ${fontSize}px Arial`;
-          textMetrics = context.measureText(randomWord);
-      }
+            // Calculate the font size to fit the width percentage of the canvas
+            let fontSize = 900;
+            context.font = `bold ${fontSize}px Arial`;
+            let textMetrics = context.measureText(randomWord);
+            while (textMetrics.width > (canvas.width * (fontWidthPercent / 100)) && fontSize > 0) {
+                fontSize -= 1;
+                context.font = `bold ${fontSize}px Arial`;
+                textMetrics = context.measureText(randomWord);
+            }
 
-      // Calculate the x and y position to center the word
-      const x = (canvas.width - textMetrics.width) / 2;
-      const y = (canvas.height / 2) + ((textMetrics.actualBoundingBoxAscent - textMetrics.actualBoundingBoxDescent) / 2);
+            // Calculate the x and y position to center the word
+            const x = (canvas.width - textMetrics.width) / 2;
+            const y = (canvas.height / 2) + ((textMetrics.actualBoundingBoxAscent - textMetrics.actualBoundingBoxDescent) / 2);
 
-      // Draw the word on the canvas
-      context.fillText(randomWord, x, y);
-  }
+            // Draw the word on the canvas
+            context.fillText(randomWord, x, y);
+        }
 
-  // Add double-click event listener
-  canvas.addEventListener('dblclick', () => {
-      randomizeWord();
-      redrawCanvas();
-  });
+        // Add double-click event listener
+        canvas.addEventListener('dblclick', () => {
+            restart();
+        });
 
-  function restart() {
-      randomizeWord();
-      redrawCanvas();
-  }
+        function restart() {
+            displayAlert(`The word "${randomWord}" has been changed`);
+            randomizeWord();
+            redrawCanvas();
+        }
 
-  document.getElementById('decreaseFontWidthPercent').addEventListener('click', () => {
-    if (fontWidthPercent <= 5) {
-        displayAlert('Minimum font size is reached!');
-    } else {
-        fontWidthPercent = Math.max(5, fontWidthPercent - 10);
-        redrawCanvas();
-    }
-});
+        document.getElementById('decreaseFontWidthPercent').addEventListener('click', () => {
+            if (fontWidthPercent <= 5) {
+                displayAlert('Font size has reached minimum size');
+            } else {
+                fontWidthPercent = Math.max(5, fontWidthPercent - 10);
+                redrawCanvas();
+                displayAlert(`Font size has been decreased to ${fontWidthPercent}%`);
+            }
+        });
 
-  document.getElementById('increaseFontWidthPercent').addEventListener('click', () => {
-    if (fontWidthPercent >= 95) {
-        displayAlert('Maximum font size is reached!');
-    } else {
-        fontWidthPercent = Math.min(95, fontWidthPercent + 10);
-        redrawCanvas();
-    }
-});
+        document.getElementById('increaseFontWidthPercent').addEventListener('click', () => {
+            if (fontWidthPercent >= 95) {
+                displayAlert('Font size has reached maximum size');
+            } else {
+                fontWidthPercent = Math.min(95, fontWidthPercent + 10);
+                redrawCanvas();
+                displayAlert(`Font size has been increased to ${fontWidthPercent}%`);
+            }
+        });
 
-</script>
-<div id="toast-alert" role="alert" aria-live="assertive"></div>
-<script>
-let toastTimeout;
-function displayAlert(message) {
-    const toast = document.getElementById('toast-alert');
-    if (toastTimeout) {
-        clearTimeout(toastTimeout);
-        toast.style.display = 'none';
-        toast.textContent = '';
-    }
-    toast.textContent = message;
-    toast.style.display = 'block';
-    if (toastTimeout) {
-        clearTimeout(toastTimeout);
-    }
-    toastTimeout = setTimeout(() => {
-        toast.style.display = 'none';
-    }, 15000);
-}
-</script>
+    </script>
+    <div id="toast-alert" role="alert" aria-live="assertive"></div>
+    <script>
+        let toastTimeout;
+        function displayAlert(message) {
+            const toast = document.getElementById('toast-alert');
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toast.style.display = 'none';
+                toast.textContent = '';
+            }
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toastTimeout = setTimeout(() => {
+                toast.style.display = 'none';
+            }, 15000);
+        }
+    </script>
 </body>
 
 </html>
