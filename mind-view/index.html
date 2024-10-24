@@ -8,35 +8,83 @@
     <title>MindView - Seeing blindfolded</title>
     <style>
         /* Zen-inspired minimalist styles */
+        /* Zen-inspired minimalist styles */
         body {
             font-family: 'Noto Serif', serif;
             margin: 0;
             padding: 0;
             text-align: center;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
+            /* Slightly lighter for a softer background */
             color: #333;
             line-height: 1.6;
         }
 
         header {
-            padding: 40px 20px;
-            background-color: #333;
-            color: #f0f0f0;
-            border-bottom: 1px solid #555;
+            padding: 60px 20px;
+            /* Increased padding for more whitespace */
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            /* Soft gradient */
+            color: #2c3e50;
+            /* Darker, calming text color */
+            border-bottom: 1px solid #d1d1d1;
+            /* Lighter border for subtle separation */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            /* Soft blue gradient */
+            background: linear-gradient(135deg, #bde0fe 0%, #a2d2ff 100%);
+            /* Soft green gradient */
+            /* background: linear-gradient(135deg, #c9f7f5 0%, #a8e6cf 100%); */
+            /* Soft lavender gradient */
+            /* background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); */
+
+            /* Optional: Add a subtle background pattern or image */
+            /* background: url('path-to-your-subtle-pattern.png') center/cover no-repeat, linear-gradient(...); */
         }
 
         h1 {
-            font-weight: 400;
+            font-weight: 300;
+            /* Lighter weight for elegance */
             font-size: 2.5em;
             margin: 0;
-            color: #ffffff;
+            color: #2c3e50;
+            /* Consistent text color */
+            font-family: 'Playfair Display', serif;
+            /* Elegant serif font */
         }
 
-        .hero-sub-title {
-            font-size: 1.4em;
+        #hero-sub-title {
+            font-size: 1.2em;
+            /* Slightly smaller for hierarchy */
             font-weight: 300;
-            color: #cccccc;
-            margin-top: 10px;
+            color: #34495e;
+            /* Complementary soft color */
+            margin-top: 15px;
+            max-width: 700px;
+        }
+
+        header p {
+            max-width: 800px;
+            margin: 20px auto 0;
+            font-size: 1em;
+            color: #555555;
+            /* Softer text color for readability */
+        }
+
+        header a#link-to-help {
+            color: #2980b9;
+            /* Calming blue */
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s, color 0.3s;
+        }
+
+        header a#link-to-help:hover {
+            color: #1c5980;
+            border-bottom: 1px solid #1c5980;
         }
 
         p {
@@ -64,7 +112,8 @@
             margin-top: 15px;
             padding: 5px 10px;
             font-size: 0.8em;
-            background-color: #4caf50;
+            /* background-color: #4caf50; */
+            background: linear-gradient(135deg, blue 0%, lightblue 100%);
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -103,7 +152,7 @@
 <body>
     <header>
         <h1>Welcome to MindView - Unlock Your Potential</h1>
-        <p id="hero-sub-title">Discover powerful tools designed to help you to practice seeing-blindfolded</p>
+        <p id="hero-sub-title">Discover powerful tools designed to help you practice seeing blindfolded</p>
         <p>
             Below is a collection of engaging tools to help you sharpen your seeing-blindfolded skills while having fun.
             Click <a href="./about.html" id="link-to-help">MindView help page here</a> for further info. All tools are
