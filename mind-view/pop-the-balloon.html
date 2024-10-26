@@ -38,6 +38,7 @@
             display: flex;
             gap: 10px;
             z-index: 10;
+            align-items: center;
         }
 
         /* Control Buttons */
@@ -53,7 +54,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 16px;
+            min-width: 50px;
         }
 
         .control-button:focus {
@@ -62,6 +64,23 @@
 
         .control-button.active {
             opacity: 1;
+        }
+
+        /* Lives Display */
+        #lives-display {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: auto;
+        }
+
+        .heart {
+            font-size: 24px;
+            color: red;
+        }
+
+        .heart.empty {
+            color: #ccc;
         }
 
         /* Toast Notification */
@@ -134,6 +153,75 @@
             height: 100%;
             z-index: 15;
         }
+
+        /* Game Over Overlay */
+        #game-over-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px 50px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 25;
+            display: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #game-over-overlay h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #game-over-overlay p {
+            font-size: 24px;
+            color: #555;
+        }
+
+        /* Start Again Button */
+        #start-again {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #start-again:hover {
+            background-color: #218838;
+        }
+
+        /* Popped Balloon Animation */
+        #popped-balloon {
+            position: absolute;
+            width: 100px;
+            height: 150px;
+            background-image: url('https://www.clker.com/cliparts/W/x/u/N/v/s/balloon-pop-md.png');
+            /* Replace with your popped balloon image URL */
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: none;
+            z-index: 20;
+            animation: popAnimation 1s forwards;
+        }
+
+        @keyframes popAnimation {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(1.5) translateY(-50px);
+            }
+        }
     </style>
 </head>
 
@@ -149,9 +237,11 @@
         <button id="open-color-picker" class="control-button" aria-label="Select Balloon Color">
             🎨 <!-- Paint Palette Icon -->
         </button>
-        <button id="refresh-game" class="control-button" aria-label="Refresh Game">
-            🔄 <!-- Refresh Icon -->
-        </button>
+        <!-- Removed Refresh and Put on Top Buttons -->
+        <!-- Lives Display -->
+        <div id="lives-display" aria-label="Remaining Lives">
+            <!-- Hearts will be inserted here via JavaScript -->
+        </div>
     </div>
 
     <!-- Main Canvas -->
@@ -176,6 +266,16 @@
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- Game Over Overlay -->
+    <div id="game-over-overlay" role="alertdialog" aria-modal="true">
+        <h1>Congrats!</h1>
+        <p id="game-over-message">You clicked the balloon X times.</p>
+        <button id="start-again">Start Again</button>
+    </div>
+
+    <!-- Popped Balloon Animation -->
+    <div id="popped-balloon"></div>
+
     <!-- Pop Sound -->
     <audio id="pop-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
@@ -190,11 +290,18 @@
             const popSound = document.getElementById('pop-sound');
             const confettiCanvas = document.getElementById('confetti-canvas');
             const confettiCtx = confettiCanvas.getContext('2d');
+            const gameOverOverlay = document.getElementById('game-over-overlay');
+            const gameOverMessage = document.getElementById('game-over-message');
+            const startAgainButton = document.getElementById('start-again');
+            const poppedBalloon = document.getElementById('popped-balloon');
 
             let balloonSize = 3; // Initial size
             let balloonColor = 'red';
             let balloonCenter = { x: 0, y: 0 };
             let balloonSizeUnit = 0;
+
+            let lives = 5; // Initial lives
+            let balloonsClicked = 0; // Balloons clicked counter
 
             // Array of affirmation messages
             const affirmationMessages = [
@@ -217,7 +324,7 @@
                 confettiCanvas.width = window.innerWidth;
                 confettiCanvas.height = window.innerHeight;
                 measureUnits();
-                refresh();
+                moveBalloonRandomly();
             }
 
             // Measure units based on canvas width
@@ -225,15 +332,14 @@
                 balloonSizeUnit = canvas.width * 0.02;
             }
 
-            // Randomize balloon center within canvas bounds
+            // Randomize balloon center within canvas bounds ensuring only the oval is visible
             function randomizeBalloonCenter() {
-                const widthRadius = balloonSize * balloonSizeUnit * 0.75; // Horizontal radius for oval
-                const heightRadius = balloonSize * balloonSizeUnit * 1.2; // Vertical radius for oval
-                const stringLength = 240; // Length of the string
+                const widthRadius = balloonSize * balloonSizeUnit * 0.9; // Horizontal radius for oval
+                const heightRadius = balloonSize * balloonSizeUnit * 1.1; // Vertical radius for oval
 
-                // Ensure the entire balloon and string fit within the canvas
+                // Ensure only the oval is fully visible within the canvas
                 const x = Math.random() * (canvas.width - 2 * widthRadius) + widthRadius;
-                const y = Math.random() * (canvas.height - 2 * heightRadius - stringLength) + heightRadius + stringLength;
+                const y = Math.random() * (canvas.height - 2 * heightRadius) + heightRadius;
 
                 balloonCenter = { x, y };
             }
@@ -252,8 +358,8 @@
                 ctx.closePath();
 
                 // Balloon Knot (Triangle)
-                const knotHeight = 20; // Height of the triangle
-                const knotWidth = 20;  // Base width of the triangle
+                const knotHeight = heightRadius * 0.05; // 5% of balloon's height
+                const knotWidth = heightRadius * 0.05;  // 5% of balloon's height
                 const triangleCenterX = balloonCenter.x;
                 const triangleTopY = balloonCenter.y + heightRadius;
                 const triangleLeftX = triangleCenterX - knotWidth / 2;
@@ -271,7 +377,7 @@
                 // Balloon String (Curvy Line)
                 const stringStartX = triangleCenterX;
                 const stringStartY = triangleBottomY;
-                const stringEndY = stringStartY + 240; // Approximately 240px downward
+                const stringLength = heightRadius * 0.3; // 30% of balloon's height
 
                 ctx.beginPath();
                 ctx.moveTo(stringStartX, stringStartY);
@@ -279,7 +385,7 @@
                 ctx.bezierCurveTo(
                     stringStartX - 20, stringStartY + 60, // Control point 1
                     stringStartX + 20, stringStartY + 120, // Control point 2
-                    stringStartX, stringEndY // End point
+                    stringStartX, stringStartY + stringLength // End point
                 );
                 ctx.strokeStyle = '#555';
                 ctx.lineWidth = 2;
@@ -304,11 +410,30 @@
                 }, duration);
             }
 
-            // Refresh function
-            function refresh() {
-                randomizeBalloonCenter();
-                redrawBalloon();
-                showToast('Game has been restarted');
+            // Update Lives Display
+            function updateLivesDisplay() {
+                const livesDisplay = document.getElementById('lives-display');
+                livesDisplay.innerHTML = ''; // Clear existing hearts
+
+                for (let i = 0; i < 5; i++) {
+                    const heart = document.createElement('span');
+                    heart.classList.add('heart');
+                    if (i < lives) {
+                        heart.innerHTML = '❤️'; // Full heart
+                    } else {
+                        heart.classList.add('empty');
+                        heart.innerHTML = '🤍'; // White heart emoji as empty heart
+                    }
+                    livesDisplay.appendChild(heart);
+                }
+            }
+
+            // Refresh function renamed to moveBalloonRandomly
+            function moveBalloonRandomly() {
+                if (lives > 0) {
+                    randomizeBalloonCenter();
+                    redrawBalloon();
+                }
             }
 
             // Handle window resize
@@ -316,6 +441,7 @@
 
             // Initial setup
             resizeCanvas();
+            updateLivesDisplay();
 
             // Button Interaction: Toggle transparency
             controlButtons.forEach(button => {
@@ -376,18 +502,7 @@
                 colorPickerModal.style.display = 'none';
             }
 
-            // Refresh Game Button
-            document.getElementById('refresh-game').addEventListener('click', () => {
-                refresh();
-                showToast('Game has been refreshed');
-            });
-
-            // Close color picker when clicking outside
-            colorPickerModal.addEventListener('click', (e) => {
-                if (e.target === colorPickerModal) {
-                    colorPickerModal.style.display = 'none';
-                }
-            });
+            // Removed Refresh Game Button functionality
 
             // Handle canvas click/touch
             canvas.addEventListener('click', handleCanvasInteraction);
@@ -407,13 +522,20 @@
                 }
 
                 if (isPointInBalloon(x, y)) {
+                    balloonsClicked++;
                     popSound.play();
                     const affirmation = getRandomAffirmation();
-                    showToast(affirmation, 5000); // Display for 5 seconds
-                    triggerConfetti();
-
-                    // Refresh the game after sometime
-                    setTimeout(refresh, 2e3);
+                    showToast(`${affirmation} Continue playing..`, 5000); // Display for 5 seconds
+                    showPoppedBalloon(x, y); // Trigger the popped balloon animation
+                    moveBalloonRandomly();
+                } else {
+                    lives--;
+                    updateLivesDisplay();
+                    if (lives <= 0) {
+                        gameOver();
+                    } else {
+                        showToast(`Missed! Lives remaining: ${lives}`, 3000);
+                    }
                 }
             }
 
@@ -426,8 +548,8 @@
             // Check if a point is inside the balloon (oval + triangle)
             function isPointInBalloon(x, y) {
                 // Check inside the oval
-                const widthRadius = balloonSize * balloonSizeUnit * 0.75;
-                const heightRadius = balloonSize * balloonSizeUnit * 1.2;
+                const widthRadius = balloonSize * balloonSizeUnit * 0.9;
+                const heightRadius = balloonSize * balloonSizeUnit * 1.1;
                 const dx = x - balloonCenter.x;
                 const dy = y - balloonCenter.y;
                 const ovalEquation = (dx * dx) / (widthRadius * widthRadius) + (dy * dy) / (heightRadius * heightRadius);
@@ -436,8 +558,8 @@
                 }
 
                 // Check inside the triangle (balloon knot)
-                const knotHeight = 20;
-                const knotWidth = 20;
+                const knotHeight = heightRadius * 0.05; // 5% of balloon's height
+                const knotWidth = heightRadius * 0.05;  // 5% of balloon's height
                 const triangleCenterX = balloonCenter.x;
                 const triangleTopY = balloonCenter.y + heightRadius;
                 const triangleLeftX = triangleCenterX - knotWidth / 2;
@@ -459,16 +581,59 @@
                 return isInTriangle;
             }
 
+            // Show Popped Balloon Animation
+            function showPoppedBalloon(x, y) {
+                poppedBalloon.style.left = `${x - 50}px`; // Center the image horizontally
+                poppedBalloon.style.top = `${y - 75}px`; // Center the image vertically
+                poppedBalloon.style.display = 'block';
+
+                // Hide after animation
+                setTimeout(() => {
+                    poppedBalloon.style.display = 'none';
+                }, 1000); // Duration should match the CSS animation duration
+            }
+
+            // Game Over Function
+            function gameOver() {
+                // Clear the balloon from the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Display Game Over Overlay with message
+                gameOverMessage.textContent = `You clicked the balloon ${balloonsClicked} times.`;
+                gameOverOverlay.style.display = 'block';
+
+                // Trigger big confetti
+                triggerConfetti();
+
+                // Disable further interactions
+                canvas.removeEventListener('click', handleCanvasInteraction);
+                canvas.removeEventListener('touchstart', handleCanvasInteraction);
+            }
+
+            // Start Again Function
+            function startAgain() {
+                lives = 5;
+                balloonsClicked = 0;
+                updateLivesDisplay();
+                gameOverOverlay.style.display = 'none';
+                moveBalloonRandomly();
+                canvas.addEventListener('click', handleCanvasInteraction);
+                canvas.addEventListener('touchstart', handleCanvasInteraction);
+            }
+
+            // Start Again Button Event Listener
+            startAgainButton.addEventListener('click', startAgain);
+
             // Confetti Effect (Simple Implementation)
             let confettiParticles = [];
             const confettiColors = ['#FFC700', '#FF0000', '#2E3192', '#41BBC7'];
 
             function triggerConfetti() {
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i < 150; i++) { // Increased number for a bigger effect
                     confettiParticles.push({
-                        x: balloonCenter.x,
-                        y: balloonCenter.y,
-                        r: Math.random() * 4 + 1,
+                        x: Math.random() * confettiCanvas.width,
+                        y: Math.random() * confettiCanvas.height,
+                        r: Math.random() * 6 + 1,
                         d: Math.random() * 100,
                         color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
                         tilt: Math.floor(Math.random() * 10) - 10,
@@ -519,7 +684,6 @@
             controlButtons.forEach(button => {
                 button.setAttribute('tabindex', '0');
             });
-
         });
     </script>
 </body>
