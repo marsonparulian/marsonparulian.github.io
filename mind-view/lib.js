@@ -13,7 +13,7 @@ const similarColors = [
     ["green", "lime"],
     ["green", "teal"],
     ["gray", "darkgray"],
-    ["black", "dimgray"],
+    ["black", "gray"],
 
 ];
 
