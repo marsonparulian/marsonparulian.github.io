@@ -26,5 +26,15 @@ const similarColorsAdvanced = [
     ["brown", "sienna"],
 ];
 
+// Randomize similar colors
+function randomizeSimilarColors() {
+    // Get random color pair
+    let colorPair = similarColors[Math.floor(Math.random() * similarColors.length)];
+    // Randomly swap the order
+    if (Math.random() < 0.5) {
+        colorPair = [colorPair[1], colorPair[0]];
+    }
+    return similarColors[Math.floor(Math.random() * similarColors.length)];
+}
 
 
