@@ -14,13 +14,12 @@ const similarColors = [
     ["green", "teal"],
     ["gray", "darkgray"],
     ["black", "gray"],
-
+    ["yellow", "gold"],
 ];
 
 // More advance similar colors
 const similarColorsAdvanced = [
     ["teal", "turquoise"],
-    ["yellow", "gold"],
     ["orange", "coral"],
     ["purple", "violet"],
     ["brown", "sienna"],
