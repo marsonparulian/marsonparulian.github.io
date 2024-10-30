@@ -29,7 +29,7 @@ function nextRound() {
     drawCanvas(firstArea, randomColors);
 
     // Update answer in the modal
-    document.getElementById("answer-text").innerText = "Separator is " + firstArea + ".";
+    document.getElementById("answer-text").innerText = "Color in the " + firstArea + " is " + randomColors[0] + " and the rest is " + randomColors[1] + ".";
 }
 
 
