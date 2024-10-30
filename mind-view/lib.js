@@ -5,7 +5,7 @@
 const similarColors = [
     ["red", "pink"],
     ["red", "orange"],
-    ["blue", "green"]
+    ["blue", "green"],
     ["blue", "lightblue"],
     ["blue", "teal"],
     ["orange", "brown"],
@@ -14,7 +14,7 @@ const similarColors = [
     ["green", "teal"],
     ["gray", "darkgray"],
     ["black", "dimgray"],
-    ["white", "snow"]
+
 ];
 
 // More advance similar colors
@@ -28,13 +28,16 @@ const similarColorsAdvanced = [
 
 // Randomize similar colors
 function randomizeSimilarColors() {
+
     // Get random color pair
-    let colorPair = similarColors[Math.floor(Math.random() * similarColors.length)];
+    let randomIndex = Math.floor(Math.random() * similarColors.length);
+    let colorPair = similarColors[randomIndex];
+
     // Randomly swap the order
     if (Math.random() < 0.5) {
         colorPair = [colorPair[1], colorPair[0]];
     }
-    return similarColors[Math.floor(Math.random() * similarColors.length)];
+    return colorPair
 }
 
 
