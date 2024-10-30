@@ -1,3 +1,8 @@
+#control-container {
+    display: flex;
+    justify-content: center
+}
+
 .modal-content {
     background-color: white;
     margin: 15% auto;
