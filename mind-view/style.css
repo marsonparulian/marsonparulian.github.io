@@ -1,5 +1,5 @@
 /* Lives Display */
-#lives-display {
+.lives-display {
     display: flex;
     align-items: center;
     gap: 5px;
