@@ -39,4 +39,19 @@ function randomizeSimilarColors() {
     return colorPair
 }
 
+// Show toast notification
+function showToast(message, duration = 10000) {
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.setAttribute('aria-live', 'assertive');
+    // Announce to screen readers
+    toast.style.visibility = 'visible';
 
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        // Hide after transition
+        setTimeout(() => {
+            toast.style.visibility = 'hidden';
+        }, 500);
+    }, duration);
+}
