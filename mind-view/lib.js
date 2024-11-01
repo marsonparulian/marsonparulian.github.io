@@ -55,3 +55,67 @@ function showToast(message, duration = 10000) {
         }, 500);
     }, duration);
 }
+
+// Confetti Effect Implementation
+class Confetti {
+    constructor(width = window.innerWidth, height = window.innerHeight) {
+        // Create and setup canvas
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.canvas.style.position = 'fixed';
+        this.canvas.style.top = '0';
+        this.canvas.style.left = '0';
+        this.canvas.style.pointerEvents = 'none';
+        this.canvas.style.zIndex = '1000';
+        document.body.appendChild(this.canvas);
+
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.colors = ['#FFC700', '#FF0000', '#2E3192', '#41BBC7'];
+    }
+
+    triggerConfetti() {
+        for (let i = 0; i < 150; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                r: Math.random() * 6 + 1,
+                d: Math.random() * 100,
+                color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                tilt: Math.floor(Math.random() * 10) - 10,
+                tiltAngleIncremental: (Math.random() * 0.07) + 0.05,
+                tiltAngle: 0
+            });
+        }
+
+        this.animate();
+    }
+
+    animate = () => {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.particles.forEach((p, index) => {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = p.r;
+            this.ctx.strokeStyle = p.color;
+            this.ctx.moveTo(p.x + p.tilt + p.r, p.y);
+            this.ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+            this.ctx.stroke();
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+            p.x += Math.sin(p.d);
+            p.tilt = Math.sin(p.tiltAngle) * 15;
+
+            if (p.y > this.canvas.height) {
+                this.particles.splice(index, 1);
+            }
+        });
+
+        if (this.particles.length > 0) {
+            requestAnimationFrame(this.animate);
+        } else {
+            // Remove canvas when animation is complete
+            this.canvas.remove();
+        }
+    }
+}
