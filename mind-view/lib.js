@@ -119,3 +119,68 @@ class Confetti {
         }
     }
 }
+
+class Toaster {
+    constructor(customStyles = {}) {
+        // Create toast element
+        this.toast = document.createElement('div');
+        this.toast.setAttribute('role', 'alert');
+        this.toast.setAttribute('aria-live', 'assertive');
+
+        // Default styles
+        const defaultStyles = {
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '4px',
+            fontSize: '16px',
+            opacity: '0',
+            transition: 'opacity 0.3s ease-in-out',
+            zIndex: '1000',
+            textAlign: 'center',
+            maxWidth: '80%',
+            wordWrap: 'break-word'
+        };
+
+        // Merge default and custom styles
+        const finalStyles = { ...defaultStyles, ...customStyles };
+
+        // Apply styles
+        Object.assign(this.toast.style, finalStyles);
+
+        // Add to document
+        document.body.appendChild(this.toast);
+    }
+
+    // Variable to hold timeout
+    timeoutObject;
+    // Default timeout
+    defaultTimeout = 17e3;
+
+    /**
+     * Show toast message
+     * @param {string} message 
+     */
+    show(message) {
+        // Cancel the timeout if exists
+        if (this.timeoutObject) {
+            clearTimeout(this.timeoutObject);
+        }
+
+        // Set message
+        this.toast.textContent = message;
+
+        // Show toast
+        this.toast.style.opacity = '1';
+
+        // Hide after 10 seconds
+        this.timeoutObject = setTimeout(() => {
+            // Fade out 
+            this.toast.style.opacity = '0';
+        }, this.defaultTimeout);
+    }
+}

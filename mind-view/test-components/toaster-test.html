@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toaster Test</title>
+    <script src="../lib.js"></script>
+</head>
+
+<body>
+    <h2> Toaster test page</h2>
+    <div style="margin-top:1400px"></div>
+    <button onclick="firstMsg()">First message</button>
+    <button onclick="secondMsg()">Second message</button>
+    <button onclick="thirdMsg()">Third message</button>
+
+    <script>
+        let toaster = new Toaster();
+
+        function firstMsg() {
+            toaster.show('This is First message --------------');
+        }
+        function secondMsg() {
+            toaster.show('This is Second message  --------------');
+        }
+        function thirdMsg() {
+            toaster.show('This is Third message  --------------');
+        }
+    </script>
+</body>
+
+</html>
