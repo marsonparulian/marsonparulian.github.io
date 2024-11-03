@@ -7,8 +7,68 @@
     <title>MindView: Shape Dig</title>
 </head>
 
+
+<div class="reveal" id="intro-modal" data-reveal>
+    <h2>Welcome to Shape Dig!</h2>
+    <p>
+        In this game, you'll need to identify and dig out shapes hidden beneath the surface.
+        Use your seeing-blindfolded skills to find the correct shapes and score points.
+        You have limited 5 lives before the game is over.
+    </p>
+    <p>Turn on the screen reader on your device to get current status of the game.</p>
+    <button class="button expanded" onclick="closeModalAndStart()">Start Playing</button>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="reveal" id="result-modal" data-reveal>
+    <h2>Game Over</h2>
+    <p>You scored <span class="score"></span> points.</p>
+    <div id="result-actions">
+        <a id="result-to-homepage" class="button" href="../">Back to homepage</a>
+        <button id="result-next-game" class="button" onclick="closeResultModal()">Go Back</button>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div id="control-container" class="grid-container control-container"
+    style="display: relative; background-color: white;">
+    <div class="grid-x grid-padding-x align-middle align-center" ">
+        <div class=" cell shrink">
+        <button id="control-to-homepage" class="button" onclick="window.location.href='../'">
+            <i class="fi-home"></i> Home
+        </button>
+    </div>
+    <div class="cell shrink">
+        <div class="lives-display">
+            <!-- 
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span> 
+            -->
+        </div>
+    </div>
+    <div class="cell shrink">
+        <div><span class="score">0</span> <span id="selected-shape-type">none</span>.</div>
+    </div>
+</div>
+</div>
+
 <body>
 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.3/pixi.min.js"></script>
+
+    <link rel="stylesheet" href="../style.css">
+    <script src="../lib.js"></script>
     <script defer src="./shape-dig.js"></script>
 </body>
 
