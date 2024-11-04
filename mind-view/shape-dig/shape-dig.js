@@ -92,6 +92,7 @@ function closeResultModal() {
 function newGame() {
     lives = 5;
     updateLivesDisplay();
+    console.log('update lives display');
 
     // Reset the selected shape
     score = 0;
