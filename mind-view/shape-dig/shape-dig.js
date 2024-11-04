@@ -217,7 +217,7 @@ function generateAGraphic(shapeType) {
     graphics.eventMode = 'static';
     graphics.cursor = 'pointer';
 
-    graphics.on('click touchstart', () => {
+    graphics.on('pointerdown', () => {
         // If no shape type selected yet, set it as the first clicked shape type
         if (!shapeTypes.includes(selectedShapeType)) {
             selectedShapeType = shapeType;
