@@ -262,9 +262,7 @@ function handleShapeClick(graphics, shapeType, color) {
 }
 
 function correctSelect(graphics) {
-    // Increase score
-    score++;
-    updateCurrentResultDisplay();
+    increaseScore(1);
 
     toaster.show(`Correct! You tap on ${graphics.shapeType}, score: ${score}`);
 }
@@ -275,6 +273,13 @@ function falseSelect(graphics) {
     updateLivesDisplay();
 
     toaster.show(`Wrong shape! You chose ${graphics.shapeType}. Try again.`);
+}
+
+function increaseScore(scoreAdd) {
+    // Increase score
+    score++;
+    document.querySelector('#score').textContent = score;
+    updateCurrentResultDisplay();
 }
 // Update Lives Display
 function updateLivesDisplay() {
