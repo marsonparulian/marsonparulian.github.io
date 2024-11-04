@@ -24,7 +24,7 @@
 
 <div class="reveal" id="result-modal" data-reveal>
     <h2>Game Over</h2>
-    <p>You scored <span class="score"></span> points.</p>
+    <p>You scored <span id="score"></span> points.</p>
     <div id="result-actions">
         <a id="result-to-homepage" class="button" href="../">Back to homepage</a>
         <button id="result-next-game" class="button" onclick="closeResultModal()">Go Back</button>
@@ -35,28 +35,20 @@
 </div>
 
 <div id="control-container" class="grid-container control-container"
-    style="display: relative; background-color: white;">
-    <div class="grid-x grid-padding-x align-middle align-center" ">
-        <div class=" cell shrink">
-        <button id="control-to-homepage" class="button" onclick="window.location.href='../'">
-            <i class="fi-home"></i> Home
-        </button>
-    </div>
-    <div class="cell shrink">
-        <div class="lives-display">
-            <!-- 
-            <span class="heart">❤️</span>
-            <span class="heart">❤️</span>
-            <span class="heart">❤️</span>
-            <span class="heart">❤️</span>
-            <span class="heart">❤️</span> 
-            -->
+    style="display: flex; justify-content: left; width: 100%; background-color: white;">
+    <div class="grid-x grid-padding-x align-middle align-center">
+        <div class="cell shrink">
+            <button id="control-to-homepage" class="button" onclick="window.location.href='../'">
+                <i class="fi-home"></i> Home
+            </button>
+        </div>
+        <div class="cell shrink">
+            <div class="lives-display"></div>
+        </div>
+        <div class="cell shrink">
+            <span id="current-result"></span>
         </div>
     </div>
-    <div class="cell shrink">
-        <div><span class="score">0</span> <span id="selected-shape-type">none</span>.</div>
-    </div>
-</div>
 </div>
 
 <body>

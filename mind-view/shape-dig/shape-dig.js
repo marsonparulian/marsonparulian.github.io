@@ -5,6 +5,8 @@ let lives = 5;
 
 // Current score
 let score = 0;
+// Elements related in displaying score
+let currentResultElement, scoreElement;
 
 // This will used as base length, dependent on the screen size
 let baseLength;
@@ -42,6 +44,10 @@ let app;
 
 
 $(document).ready(function () {
+    // Parse elements
+    currentResultElement = document.getElementById("current-result");
+    scoreElement = document.getElementById("score");
+
     // Calculate basic values
     measureBaseLength();
 
@@ -85,10 +91,14 @@ function closeResultModal() {
 // Start a new game
 function newGame() {
     lives = 5;
-    updateLivesDisplay;
+    updateLivesDisplay();
 
-    // Reset selected shape
+    // Reset the selected shape
+    score = 0;
     selectedShapeType = "none";
+
+    // Update score related display
+    updateCurrentResultDisplay();
 
     toaster.show('New game started!');
     regenerateShapes();
@@ -211,8 +221,7 @@ function generateAGraphic(shapeType) {
         // If no shape type selected yet, set it as the first clicked shape type
         if (!shapeTypes.includes(selectedShapeType)) {
             selectedShapeType = shapeType;
-            document.getElementById('selected-shape-type').textContent = selectedShapeType;
-            toaster.show(`You selected ${selectedShapeType}! Keep digging for ${selectedShapeType}s.`);
+            updateCurrentResultDisplay();
 
             // Remove the shape
             app.stage.removeChild(graphics);
@@ -253,7 +262,8 @@ function handleShapeClick(graphics, shapeType, color) {
 
 function correctSelect(graphics) {
     // Increase score
-    increaseScore();
+    score++;
+    updateCurrentResultDisplay();
 
     toaster.show(`Correct! You tap on ${graphics.shapeType}, score: ${score}`);
 }
@@ -284,16 +294,24 @@ function updateLivesDisplay() {
     }
 }
 
-function increaseScore() {
-    score++;
-    // Update textContent for all `score` class
-    document.querySelectorAll('.score').forEach(element => {
-        element.textContent = score;
-    });
-}
-
 function showResultModal() {
     confetti.triggerConfetti();
     $('#result-modal').foundation('open');
 
+}
+// function updateLivesDisplay() {
+//     const selectedShapeDisplay = document.getElementById('selected-shape-type');
+//     selectedShapeDisplay.textContent = graphics.shapeType; // Update the selected shape display
+// }
+
+function updateCurrentResultDisplay() {
+    let msg = '';
+    if (!shapeTypes.includes(selectedShapeType)) {
+        msg = 'Select any shape';
+    } else if (score < 1) {
+        msg = `Tap on more ${selectedShapeType}s`;
+    } else {
+        msg = `${score} ${selectedShapeType}s`;
+    }
+    currentResultElement.textContent = msg;
 }
