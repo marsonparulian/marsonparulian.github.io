@@ -1,287 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
 
-    <!doctype html>
-    <html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marson Parulian — Screen Reader Accessibility Specialist</title>
+    <meta name="description"
+        content="Manual screen reader testing and technical advocacy for web apps. By Marson Parulian, a screen reader user and full stack developer." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Marson Parulian profile page">
-        <meta name="author" content="Marson Parulian">
-        <meta name="generator" content="Jekyll v3.8.5">
-        <title>Marson Parulian's code page</title>
+        :root {
+            --ink: #0f0e0d;
+            --ink-mid: #3d3a36;
+            --ink-soft: #7a756e;
+            --ink-faint: #b8b2aa;
+            --paper: #f5f2ee;
+            --paper-warm: #ede9e3;
+            --paper-mid: #e4dfd7;
+            --accent: #c8522a;
+            --accent-light: #f0ddd4;
+            --rule: #d6d0c8;
 
-        <!-- Bootstrap core CSS -->
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Instrument Sans', system-ui, sans-serif;
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            --max: 780px;
+            --gutter: clamp(1.5rem, 5vw, 3rem);
+        }
 
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── GRAIN OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 100;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        /* ── LAYOUT ── */
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+        }
+
+        /* ── HEADER ── */
+        header {
+            padding: clamp(3rem, 8vw, 5rem) 0 0;
+            position: relative;
+        }
+
+        .header-inner {
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: clamp(2.5rem, 6vw, 4rem);
+        }
+
+        .eyebrow {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eyebrow::after {
+            content: '';
+            display: block;
+            height: 1px;
+            width: 48px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.6rem, 6vw, 4rem);
+            font-weight: 400;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.2vw, 1.1rem);
+            color: var(--ink-mid);
+            line-height: 1.75;
+            max-width: 540px;
+        }
+
+        .hero-cta {
+            margin-top: 2.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--ink);
+            color: var(--paper);
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 26px;
+            border-radius: 2px;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .hero-note {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        /* ── PERSPECTIVE BAND ── */
+        .perspective-band {
+            background: var(--ink);
+            color: var(--paper);
+            padding: clamp(2.5rem, 6vw, 4rem) 0;
+            margin: clamp(3rem, 7vw, 5rem) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perspective-band::before {
+            content: '"';
+            font-family: var(--serif);
+            font-size: 28rem;
+            line-height: 0.7;
+            color: white;
+            opacity: 0.04;
+            position: absolute;
+            top: -2rem;
+            left: -2rem;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .perspective-inner {
+            position: relative;
+        }
+
+        .perspective-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .perspective-quote {
+            font-family: var(--serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.45rem);
+            line-height: 1.65;
+            font-weight: 400;
+            color: #f0ece6;
+            max-width: 600px;
+        }
+
+        .perspective-quote strong {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: clamp(2.5rem, 6vw, 4rem) 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-num {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--ink-faint);
+        }
+
+        h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        /* ── WHAT I TEST ── */
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--rule);
+            border: 1px solid var(--rule);
+            margin-top: 0.5rem;
+        }
+
+        .test-item {
+            background: var(--paper);
+            padding: 1.5rem 1.75rem;
+            position: relative;
+        }
+
+        .test-item-num {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 2rem;
+            color: var(--paper-mid);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            user-select: none;
+        }
+
+        .test-item h3 {
+            font-family: var(--sans);
+            /* font-size: 14px; */
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.01em;
+        }
+
+        .test-item p {
+            /* font-size: 13.5px; */
+            font-size: 16px;
+            color: var(--ink-soft);
+            line-height: 1.65;
+        }
+
+        /* ── INTERACTION LIST ── */
+        .interaction-list {
+            list-style: none;
+            border-top: 1px solid var(--rule);
+        }
+
+        .interaction-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--rule);
+            /* font-size: 15px; */
+            font-size: 16px;
+            color: var(--ink-mid);
+            line-height: 1.6;
+        }
+
+        .interaction-list li::before {
+            content: '→';
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── SERVICES ── */
+        .services-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            border: 1px solid var(--rule);
+            background: var(--paper-warm);
+            padding: 1.5rem 1.75rem;
+            border-radius: 2px;
+        }
+
+        .service-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 3px 10px;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .service-card p {
+            font-size: 13.5px;
+            color: var(--ink-soft);
+            line-height: 1.65;
+        }
+
+        /* ── SKILLS ── */
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .skill-pill {
+            font-size: 13px;
+            padding: 6px 16px;
+            border: 1px solid var(--rule);
+            border-radius: 100px;
+            color: var(--ink-mid);
+            background: var(--paper);
+            font-family: var(--sans);
+        }
+
+        /* ── AUDITS ── */
+        .audits-list {
+            border-top: 1px solid var(--rule);
+        }
+
+        .audit-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--rule);
+            gap: 1rem;
+        }
+
+        .audit-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .audit-name {
+            /* font-size: 15px; */
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .audit-date {
+            /* font-size: 12px; */
+            font-size: 14px;
+            color: var(--ink-faint);
+        }
+
+        .audit-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            /* font-size: 13px; */
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--ink-mid);
+            text-decoration: none;
+            border: 1px solid var(--rule);
+            padding: 6px 16px;
+            border-radius: 2px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .audit-link:hover {
+            background: var(--ink);
+            color: var(--paper);
+            border-color: var(--ink);
+        }
+
+        .audit-link:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .audit-placeholder {
+            font-size: 13px;
+            color: var(--ink-faint);
+            font-style: italic;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        /* ── CONTACT ── */
+        .contact-block {
+            background: var(--ink);
+            color: var(--paper);
+            padding: clamp(3rem, 7vw, 5rem) 0;
+            margin-top: clamp(3rem, 7vw, 5rem);
+        }
+
+        .contact-block h2 {
+            color: var(--paper);
+            margin-bottom: 1rem;
+        }
+
+        .contact-sub {
+            color: #b8b2aa;
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 480px;
+            margin-bottom: 2rem;
+        }
+
+        .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            /* font-size: 14px; */
+            font-size: 16px;
+            font-weight: 500;
+            padding: 13px 28px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-contact:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        .btn-contact:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--ink);
+            border-top: 1px solid #222;
+            padding: 1.5rem 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #555;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
 
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            animation: fade-up 0.6s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.25s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.55s;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .test-grid {
+                grid-template-columns: 1fr;
             }
 
-            .box-list-panel {
-                margin: 40px auto;
+            .services-list {
+                grid-template-columns: 1fr;
             }
 
-            .box-item {
-                text-align: left;
-                margin-bottom: 20px;
+            .hero-cta {
+                flex-direction: column;
+                align-items: flex-start;
             }
+        }
+    </style>
+</head>
 
-            .box-item h3 {
-                font-size: 1.5rem;
-            }
+<body>
 
-            .box-item p {
-                margin: .3rem auto;
-            }
-        </style>
-        <!-- Custom styles for this template -->
-        <link href="cover.css" rel="stylesheet">
-    </head>
-
-    <body class="text-center">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <header class="masthead mb-auto">
-                <div class="inner">
-                    <h3 class="masthead-brand">Marson Parulian</h3>
-                    <!--
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Home</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Contact</a>
-                </nav>
-                -->
-                    <nav class="nav nav-masthead justify-content-center">
-                        <a class="nav-link" href="mailto:marson.parulian@gmail.com">marson.parulian@gmail.com</a>
-                    </nav>
-                </div>
-            </header>
-
-            <main role="main" class="inner cover">
-                <h1 class="cover-heading">Hi, </h1>
-                <p class="lead">
-                    I am looking for a remote developer role with tech stack :
-                    Javascript, Typescript, Node.js, express.js, MongoDB, React - Redux, AWS.
+    <!-- HEADER -->
+    <header>
+        <div class="wrap">
+            <div class="header-inner">
+                <p class="eyebrow fade-up">Available for hire</p>
+                <h1 class="fade-up delay-1">
+                    Making your web app<br>
+                    <em>work for everyone.</em>
+                </h1>
+                <p class="hero-sub fade-up delay-2">
+                    Manual screen reader testing and technical advocacy for web apps —
+                    by an actual screen reader user and understands your code.
                 </p>
-                <p>Please find recent demo projects below.</p>
-                <!--
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-            </p>
-            -->
+                <div class="hero-cta fade-up delay-3">
+                    <a href="#contact" class="btn-primary">Get in touch</a>
+                    <span class="hero-note">Marson Parulian &mdash; Screen Reader Accessibility Specialist</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                <div class="box-list-panel">
-                    <div class="box-list ">
-                        <h2 class="sr-only">List of projects</h2>
-                        <div class="row">
-                            <div class="box-item col-md-6">
-                                <h3>Movies Display</h3>
-                                <p>
-                                    Simple movies display using <code>Ionic</code> <code>Vue</code>.
-                                    The data was fetched from Event Cinema's API (proxy server).
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">Ionic</span>&nbsp;
-                                    <span class="badge badge-info">Vue</span>&nbsp;
-                                    <span class="badge badge-info">Typescript</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/nm-devhomework-ionic/tree/event-cinemas"
-                                        aria-label="'Movie Display' code repo">Code repo</a>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="http://nm-server-dev.ap-southeast-2.elasticbeanstalk.com"
-                                        aria-label="'Movie Display' live site">Live site</a>
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>Webstore GraphQL API</h3>
-                                <!-- <p><span class="badge badge-warning">ongoing</span></p> -->
-                                <p>Web store API demo that communicates fully via GraphQL (Apollo server).
-                                    Authentication
-                                    is based on JSON Web Token.</p>
-                                <p>Testing are focused on integration tests using Apollo server's
-                                    <code> executeOperation </code> to mimick the GraphQl client operations.
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">GraphQL</span>&nbsp;
-                                    <span class="badge badge-info">Apollo-server</span>&nbsp;
-                                    <span class="badge badge-info">JWT</span>&nbsp;
-                                    <span class="badge badge-info">Typescript</span>&nbsp;
-                                    <span class="badge badge-info">MongoDB</span>&nbsp;
-                                    <span class="badge badge-info">jest</span>&nbsp;
-                                    <span class="badge badge-info">node-mock-http</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/webstore-graphql-api"
-                                        aria-label="Webstore GraphQL API code repo">Code repo</a>
-                                    <!--
-                                <a class="badge badge-secondary" target="_blank"
-                                    href="https://butternut-knowledgeable-celery.glitch.me/doc"
-                                    aria-label="School API live site">Live site</a>
-                                    -->
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>Covid-19 LGA API</h3>
-                                <!-- <p><span class="badge badge-warning">ongoing</span></p> -->
-                                <p>Simple Covid-19 API. Provide number of cases per LGA per previous days.</p>
-                                <p>
-                                    The data fetched daily from NSW Covid19 API executed by <code>github actions</code>
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">Typescript</span>&nbsp;
-                                    <span class="badge badge-info">Express.js</span>&nbsp;
-                                    <span class="badge badge-info">MongoDB</span>&nbsp;
-                                    <span class="badge badge-info">supertest</span>&nbsp;
-                                    <span class="badge badge-info">jest</span>&nbsp;
-                                    <span class="badge badge-info">swagger</span>&nbsp;
-                                    <span class="badge badge-info">github action</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/covid19-lga-api"
-                                        aria-label="Covid-19 LGA code repo">Code repo</a>
-                                    <!--
-                                <a class="badge badge-secondary" target="_blank"
-                                    href="https://butternut-knowledgeable-celery.glitch.me/doc"
-                                    aria-label="School API live site">Live site</a>
-                                    -->
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>Web automation on Marketplace</h3>
-                                <p><span class="badge badge-warning">ongoing</span></p>
-                                <p>
-                                    Simple web automation on an Indonesia marketplace (shopee) : to click on 'boost'
-                                    button
-                                    on every time interval.
-                                    The app is able to do login &amp; handle crash / restart while maintaining the time
-                                    interval between product boosting.
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">Node.js</span>&nbsp;
-                                    <span class="badge badge-info">Puppeteer</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/hepikid"
-                                        aria-label="Repo for web automation on marketplace">Repo</a>
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>School API </h3>
-                                <!-- <p><span class="badge badge-warning">ongoing</span></p> -->
-                                <p>Simple demo API to CRUD school and suburb</p>
-                                <p>
-                                    <span class="badge badge-info">Typescript</span>&nbsp;
-                                    <span class="badge badge-info">Express.js</span>&nbsp;
-                                    <span class="badge badge-info">MongoDB</span>&nbsp;
-                                    <span class="badge badge-info">supertest</span>&nbsp;
-                                    <span class="badge badge-info">jest</span>&nbsp;
-                                    <span class="badge badge-info">swagger</span>&nbsp;
-                                    <span class="badge badge-info">github action</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/school-api"
-                                        aria-label="School API code repo">Code repo</a>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://butternut-knowledgeable-celery.glitch.me/doc"
-                                        aria-label="School API live site">Live site</a>
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>Name Analyzer</h3>
-                                <p>Simple name analyser utilizing third party API</p>
-                                <p>
-                                    <span class="badge badge-info">React</span>&nbsp;
-                                    <span class="badge badge-info">Redux</span>&nbsp;
-                                    <span class="badge badge-info">jest</span>&nbsp;
-                                    <span class="badge badge-info">testing-library</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/name-analyzer"
-                                        aria-label="Name analyzer code repo">Code repo</a>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://marsonparulian.github.io/name-analyzer"
-                                        aria-label="Name analyzer live site">Live site</a>
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>NSW Departure Board</h3>
-                                <p>
-                                    Simple departure board app to show new departure from a station, bus stop, etc.
-                                    The app is using Transport for NSW's <kbd>Trip Planner</kbd> API.
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">Typescript</span>&nbsp;
-                                    <span class="badge badge-info">React</span>&nbsp;
-                                    <span class="badge badge-info">express.js</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://github.com/marsonparulian/tfnsw-depart"
-                                        aria-label="Departure board code repo">Code repo</a>
-                                    <a class="badge badge-secondary" target="_blank"
-                                        href="https://pond-emerald-ocarina.glitch.me/"
-                                        aria-label="Departure board live site">Live site</a>
-                                </p>
-                            </div>
-                            <div class="box-item col-md-6">
-                                <h3>Timun.com.au</h3>
-                                <p>
-                                    Community based app to sell and search home cooked meal.
-                                </p>
-                                <p>
-                                    <span class="badge badge-info">Express.js</span>&nbsp;
-                                    <span class="badge badge-info">MongoDB</span>&nbsp;
-                                    <span class="badge badge-info">Mapbox</span>&nbsp;
-                                    <span class="badge badge-info">Preact</span>&nbsp;
-                                    <span class="badge badge-info">Redux</span>&nbsp;
-                                    <span class="badge badge-info">GraphQL</span>&nbsp;
-                                    <span class="badge badge-info">AWS</span>&nbsp;
-                                </p>
-                                <p>
-                                    <a class="badge badge-secondary" target="_blank" href="https://timun.com.au"
-                                        aria-label="Timun.com.au live site">Live site</a>
-                                </p>
+    <!-- PERSPECTIVE BAND -->
+    <div class="perspective-band" role="region" aria-label="My perspective">
+        <div class="wrap">
+            <div class="perspective-inner">
+                <p class="perspective-label">My perspective</p>
+                <p class="perspective-quote">
+                    I use a screen reader roughly half the time. That puts me
+                    <strong>between the sighted world and the blind world.</strong>
+                    I see what your designers intended — and I feel exactly where
+                    blind users get lost. Most accessibility consultants have one perspective. I have both.
+                </p>
+            </div>
+        </div>
+    </div>
 
-                            </div>
-                            <!-- </div>
-                    <div class="row"> -->
-                        </div>
+    <main id="main">
+
+        <!-- WHAT I TEST -->
+        <section aria-labelledby="test-heading">
+            <div class="wrap">
+                <div class="section-header">
+                    <span class="section-num" aria-hidden="true">01</span>
+                    <h2 id="test-heading">What I test</h2>
+                </div>
+                <div class="test-grid" role="list">
+                    <div class="test-item" role="listitem">
+                        <div class="test-item-num" aria-hidden="true">1</div>
+                        <h3>Perceivable and Understandable</h3>
+                        <p>Evaluates how effectively screen reader users can navigate and comprehend web
+                            content. I focus on ensuring that all information is programmatically accessible and
+                            logically structured for a seamless, intuitive experience.
+                        </p>
+                    </div>
+                    <div class="test-item" role="listitem">
+                        <div class="test-item-num" aria-hidden="true">2</div>
+                        <h3>Focus management</h3>
+                        <p>When a modal opens, does focus move into it? When it closes, does focus return correctly?
+                            Blind users navigate by keyboard — broken focus means getting lost.</p>
+                    </div>
+                    <div class="test-item" role="listitem">
+                        <div class="test-item-num" aria-hidden="true">3</div>
+                        <h3>Live updates & announcements</h3>
+                        <p>Dynamic content — alerts, errors, confirmations, loading states — must be announced. If it
+                            only appears on screen, blind users never know it happened.</p>
+                    </div>
+                    <div class="test-item" role="listitem">
+                        <div class="test-item-num" aria-hidden="true">4</div>
+                        <h3>Full task flow</h3>
+                        <p>Can a blind user complete the entire task — sign up, fill a form, submit, get feedback —
+                            without getting confused or stuck? I test end-to-end, not just components.</p>
+                    </div>
+                    <div class="test-item" role="listitem">
+                        <div class="test-item-num" aria-hidden="true">5</div>
+                        <h3>Attributes & markup</h3>
+                        <p>Missing alt text, incorrect roles, broken labels, improper heading hierarchy — the structural
+                            layer that screen readers depend on.</p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-            </main>
-
-            <footer class="mastfoot mt-auto">
-                <div class="inner">
-                    <p>
-                        This page is using <a href="https://getbootstrap.com/docs/4.3/examples/cover/">Cover
-                            template</a>
-                        for <a href="https://getbootstrap.com/">Bootstrap</a>,
-                        by <a href="https://twitter.com/mdo">@mdo</a>.
-                    </p>
+        <!-- INTERACTION FAILURES -->
+        <section aria-labelledby="interaction-heading">
+            <div class="wrap">
+                <div class="section-header">
+                    <span class="section-num" aria-hidden="true">02</span>
+                    <h2 id="interaction-heading">The silent failures automated tools miss</h2>
                 </div>
-            </footer>
-        </div>
-    </body>
+                <ul class="interaction-list">
+                    <li>A modal opens but focus stays on the button that triggered it — the user has no idea a dialog
+                        appeared</li>
+                    <li>An error message displays visually but is never announced — the user resubmits a broken form,
+                        confused</li>
+                    <li>A page update happens after clicking a button, but nothing is communicated — the user thinks
+                        nothing worked</li>
+                    <li>A loading spinner appears — but there's no ARIA live region to say "loading" or "done"</li>
+                    <li>A success toast notification appears on screen and fades away before a screen reader gets to
+                        announce it</li>
+                    <li>Navigation skips or menu items that work visually but trap or disorient keyboard users</li>
+                </ul>
+            </div>
+        </section>
 
-    </html>
+        <!-- SERVICES -->
+        <section aria-labelledby="services-heading">
+            <div class="wrap">
+                <div class="section-header">
+                    <span class="section-num" aria-hidden="true">03</span>
+                    <h2 id="services-heading">Services</h2>
+                </div>
+                <div class="services-list">
+                    <div class="service-card">
+                        <span class="service-tag">Testing</span>
+                        <h3>Manual screen reader audit</h3>
+                        <p>Real-world testing with an actual screen reader. I document every failure — broken
+                            attributes, silent interactions, confusing flows — with clear explanations and steps to
+                            reproduce.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-tag">Technical</span>
+                        <h3>Root cause & fix advice</h3>
+                        <p>As a developer, I trace every issue to its source — missing ARIA labels, incorrect live
+                            region setup, broken focus management — and explain exactly what code needs to change.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-tag">Ongoing</span>
+                        <h3>Monthly monitoring</h3>
+                        <p>Your app changes constantly. I check in monthly, update a living report with newest findings
+                            on top, and flag any regressions before your users notice them.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-tag">Compliance</span>
+                        <h3>WCAG review</h3>
+                        <p>Structured audit mapped to WCAG guidelines, delivered as a prioritised, actionable report
+                            your developers can work from directly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BACKGROUND -->
+        <section aria-labelledby="background-heading">
+            <div class="wrap">
+                <div class="section-header">
+                    <span class="section-num" aria-hidden="true">04</span>
+                    <h2 id="background-heading">Technical background</h2>
+                </div>
+                <p
+                    style="color: var(--ink-mid); font-size: 15px; line-height: 1.75; max-width: 560px; margin-bottom: 1.5rem;">
+                    I'm a full stack web developer with deep knowledge of the front-end layer where accessibility
+                    problems actually live. I understand your code, which means my reports are never vague — every
+                    finding comes with a technical explanation and a concrete fix.
+                </p>
+                <div class="skills-row" role="list" aria-label="Technical skills">
+                    <span class="skill-pill" role="listitem">HTML</span>
+                    <span class="skill-pill" role="listitem">CSS</span>
+                    <span class="skill-pill" role="listitem">JavaScript</span>
+                    <span class="skill-pill" role="listitem">ARIA</span>
+                    <span class="skill-pill" role="listitem">WCAG guidelines</span>
+                    <span class="skill-pill" role="listitem">Focus management</span>
+                    <span class="skill-pill" role="listitem">Live regions</span>
+                    <span class="skill-pill" role="listitem">Screen reader testing</span>
+                    <span class="skill-pill" role="listitem">Full stack development</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUDIT SAMPLES -->
+        <section aria-labelledby="audits-heading">
+            <div class="wrap">
+                <div class="section-header">
+                    <span class="section-num" aria-hidden="true">05</span>
+                    <h2 id="audits-heading">Audit samples</h2>
+                </div>
+                <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 1.5rem;">
+                    Real audits of live websites — updated regularly with the latest findings.
+                </p>
+                <div class="audits-list">
+                    <!-- Add your audit rows here. Example: -->
+                    <!--
+          <div class="audit-row">
+            <div class="audit-meta">
+              <span class="audit-name">Claude.ai</span>
+              <span class="audit-date">Last updated June 2026</span>
+            </div>
+            <a href="#" class="audit-link">View report ↗</a>
+          </div>
+          -->
+                    <p class="audit-placeholder">Audit reports coming soon — check back shortly.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CONTACT -->
+    <div class="contact-block" id="contact" role="region" aria-labelledby="contact-heading">
+        <div class="wrap">
+            <h2 id="contact-heading">Let's work together</h2>
+            <p class="contact-sub">
+                If your web app isn't fully screen reader friendly, your users are working harder than they should — and
+                most of the time, neither of you even know it. Let's fix that.
+            </p>
+            <a href="mailto:marsonparulian@gmail.com" class="btn-contact">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+                marsonparulian@gmail.com
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+        <div class="wrap">
+            <div class="footer-inner">
+                <span>© 2026 Marson Parulian</span>
+                <span>Screen Reader Accessibility Specialist</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll-triggered fade-ins
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.test-item, .service-card, .interaction-list li').forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(18px)';
+            el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+
+</html>
