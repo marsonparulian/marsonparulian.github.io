@@ -446,6 +446,13 @@
         }
 
         /* ── ARTICLES ── */
+        .articles-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 1rem;
+        }
 
         .article-item h3 {
             margin-bottom: 0.25rem;
@@ -458,6 +465,82 @@
         .article-item p {
             margin: 0;
             color: var(--ink-soft);
+        }
+
+        /* ── ARTICLES CARDS ── */
+        .articles-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .articles-cards>div {
+            background: var(--paper-warm);
+            border: 1px solid var(--rule);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 14px rgba(15, 14, 13, 0.04);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+
+        .articles-cards>div:hover,
+        .articles-cards>div:focus-within {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(15, 14, 13, 0.06);
+            border-color: var(--accent);
+        }
+
+        /* change the card heading color when the card is hovered or focused */
+        .articles-cards>div:hover a,
+        .articles-cards>div:focus-within a {
+            color: var(--accent);
+        }
+
+        .articles-cards h3 {
+            font-family: var(--serif);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+            transition: color 0.15s ease;
+        }
+
+        .articles-cards ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .articles-cards li {
+            margin-bottom: 0.75rem;
+        }
+
+        .articles-cards h4 {
+            font-size: 0.95rem;
+            margin: 0 0 0.25rem 0;
+        }
+
+        .articles-cards a {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .articles-cards a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .articles-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .articles-cards {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* ── CONTACT ── */
@@ -780,17 +863,89 @@
                 <p style="color: var(--ink-soft); font-size: 16px; margin-bottom: 1.5rem;">
                     My articles related to web audits and best practices for screen reader
                 </p>
-                <div>
-                    <ul class="articles-list" role="list"
-                        style="list-style:none; padding:0; margin:0; display:grid; gap:1rem;">
+                <div class="articles-cards">
+                    <div>
+                        <h3>Claude</h3>
+                        <ul>
+                            <li>
+                                <h4>
+                                    <a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-claudeai-433a">
+                                        Experience Analysis on Claude
+                                    </a>
+                                </h4>
+                                <p>Article about the a screen reader experience using Claude web on desktop.</p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a
+                                        href="https://dev.to/wiscer/screen-reader-experience-mitigation-on-claudeai-4khl">
+                                        Mitigation Analysis on Claude
+                                    </a>
+                                </h4>
+                                <p>Article on mitigation strategies to handle accessibility issues on Claude web desktop
+                                    web.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Grok</h3>
+                        <ul>
+                            <li>
+                                <h4>
+                                    <a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-grok-3iag">
+                                        Experience Analysis on Grok
+                                    </a>
+                                </h4>
+                                <p>Article about the a screen reader experience using Grok web on desktop.</p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://dev.to/wiscer/screen-reader-experience-mitigation-on-grok-35j4">
+                                        Mitigation Analysis on Grok
+                                    </a>
+                                </h4>
+                                <p>Article on mitigation strategies to handle accessibility issues on Grok web.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Gemini AI</h3>
+                        <ul>
+                            <li>
+                                <h4>
+                                    <a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-gemini-ac9">
+                                        Experience Analysis on Gemini AI
+                                    </a>
+                                </h4>
+                                <p>Article about the a screen reader experience using Gemini AI web.</p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://dev.to/wiscer/screen-reader-experience-mitigation-on-gemini-2all">
+                                        Mitigation Analysis on Gemini AI
+                                    </a>
+                                </h4>
+                                <p>
+                                    Article on mitigation strategies to handle accessibility issues on Gemini AI desktop
+                                    web.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
 
+
+
+                    <!-- 
+                    <ul class="articles-list" role="list">
                         <li class="article-item" role="listitem">
                             <h3>
                                 <a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-claudeai-433a"
-                                    target="_blank" rel="noopener">Screen Reader Experience Analysis on Claude
+                                    target="_blank" rel="noopener">
+                                    Screen Reader Experience Analysis on Claude AI
                                 </a>
                             </h3>
-                            <p>Analysis on how well Claude AI works with screen reader (NVDA).>
+                            <p>Analysis on how well Claude AI web works with screen reader (NVDA).</p>
                         </li>
                         <li class="article-item" role="listitem">
                             <h3>
@@ -799,7 +954,7 @@
                                     Screen Reader Experience Mitigation on Claude AI
                                 </a>
                             </h3>
-                            <p>Article about how to mitigate the inaccessibility items found on Claude AI.</p>
+                            <p>Article about how to mitigate the accessibility issues found on Claude AI web.</p>
                         </li>
                         <li class="article-item" role="listitem">
                             <h3><a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-grok-3iag"
@@ -813,15 +968,10 @@
                                     target="_blank" rel="noopener">Screen Reader Experience Mitigation on Grok
                                 </a>
                             </h3>
-                            <p>Article on how to mitigate the inaccessibility factors in Grok web UI.</p>
-                            <!-- </li>
+                            <p>Article on how to mitigate the accessibility issues on Grok web.</p>
+                        </li>
+
                         <li class="article-item" role="listitem">
-                            <h3><a href="#" target="_blank" rel="noopener">Screen Reader Experience Mitigation on Gemini
-                                </a>
-                            </h3>
-                            <p></p>
-                        </li> -->
-                        <li class="article-item" role="listitem">note
                             <h3><a href="https://dev.to/wiscer/screen-reader-experience-analysis-on-gemini-ac9"
                                     target="_blank" rel="noopener">
                                     Screen Reader Experience Analysis on Gemini
@@ -838,41 +988,8 @@
                             </h3>
                             <p>Article on how to mitigate inaccessibility factors on Gemini web.</p>
                         </li>
-
-                        <!-- 
-                        <li class="article-item" role="listitem">
-                            <h3 style="margin-bottom:0.25rem;"><a
-                                    href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank"
-                                    rel="noopener">MDN Web Docs: Accessibility</a></h3>
-                            <p style="margin:0; color:var(--ink-soft);">Practical guidance on semantic HTML, ARIA, and
-                                developer best practices to make web content perceivable and operable for everyone.</p>
-                        </li>
-
-                        <li class="article-item" role="listitem">
-                            <h3 style="margin-bottom:0.25rem;"><a
-                                    href="https://webaim.org/projects/screenreadersurvey7/" target="_blank"
-                                    rel="noopener">WebAIM: Screen Reader User Survey</a></h3>
-                            <p style="margin:0; color:var(--ink-soft);">Survey insights that show how real users
-                                interact with screen readers — helpful when prioritising fixes and testing approaches.
-                            </p>
-                        </li>
-
-                        <li class="article-item" role="listitem">
-                            <h3 style="margin-bottom:0.25rem;"><a
-                                    href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank"
-                                    rel="noopener">Understanding WCAG</a></h3>
-                            <p style="margin:0; color:var(--ink-soft);">A concise overview of WCAG principles, success
-                                criteria, and conformance levels for planning and validating accessibility work.</p>
-                        </li>
-
-                        <li class="article-item" role="listitem">
-                            <h3 style="margin-bottom:0.25rem;"><a href="https://www.nvaccess.org/" target="_blank"
-                                    rel="noopener">NVDA (practical testing resources)</a></h3>
-                            <p style="margin:0; color:var(--ink-soft);">Download and documentation for NVDA — a free
-                                Windows screen reader that's essential for hands-on accessibility testing.</p>
-                        </li>
-                        -->
-                    </ul>
+                    </ul> 
+                    -->
                 </div>
             </div>
         </section>
